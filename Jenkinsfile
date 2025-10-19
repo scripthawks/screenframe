@@ -4,7 +4,7 @@ pipeline {
     agent any
     environment {
         ENV_TYPE = "production"
-        PORT = 4066
+        PORT = 4067
         NAMESPACE = "screenframe-ru"
         REGISTRY_HOSTNAME = "scripthawks"
         REGISTRY = "registry.hub.docker.com"
