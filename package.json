@@ -5,11 +5,13 @@
   "scripts": {
     "dev": "next dev --turbopack",
     "build": "next build --turbopack",
+    "build:production": "npm run build",
     "start": "next start",
     "lint": "eslint . ; stylelint \"**/*.css\"",
     "prettier": "npx prettier --write **/*.{ts,tsx,json,scss}",
     "lint:ts": "eslint \"./src/**/*.{ts,tsx}\"",
     "lint:ts:fix": "eslint \"./src/**/*.{ts,tsx}\" --fix"
+
   },
   "dependencies": {
     "@reduxjs/toolkit": "^2.9.0",
