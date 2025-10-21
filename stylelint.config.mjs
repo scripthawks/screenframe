@@ -1,7 +1,21 @@
 /** @type {import('stylelint').Config} */
 export default {
-  extends: ['stylelint-config-standard-scss'],
+  extends: ['stylelint-config-standard-scss', 'stylelint-config-clean-order'],
   rules: {
-    'number-loading-zero': 'always',
+    'custom-property-pattern': null,
+    'property-no-unknown': [
+      true,
+      {
+        ignoreProperties: ['composes'],
+      },
+    ],
+    'selector-class-pattern': null,
+    'selector-pseudo-class-no-unknown': [
+      true,
+      {
+        ignorePseudoClasses: ['global'],
+      },
+    ],
   },
 }
+
