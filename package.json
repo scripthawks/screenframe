@@ -11,7 +11,6 @@
     "prettier": "npx prettier --write **/*.{ts,tsx,json,scss}",
     "lint:ts": "eslint \"./src/**/*.{ts,tsx}\"",
     "lint:ts:fix": "eslint \"./src/**/*.{ts,tsx}\" --fix"
-
   },
   "dependencies": {
     "@reduxjs/toolkit": "^2.9.0",
@@ -24,6 +23,7 @@
   "devDependencies": {
     "@eslint/eslintrc": "^3",
     "@eslint/js": "^9.37.0",
+    "@next/eslint-plugin-next": "^16.0.0",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
@@ -31,7 +31,6 @@
     "eslint-config-next": "^15.5.5",
     "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-prettier": "^5.5.4",
-    "eslint-plugin-react": "^7.37.5",
     "globals": "^16.4.0",
     "prettier": "3.6.2",
     "stylelint": "^16.25.0",
