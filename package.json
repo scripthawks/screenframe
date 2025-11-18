@@ -13,7 +13,9 @@
     "build-storybook": "storybook build"
   },
   "dependencies": {
+    "@fontsource/inter": "^5.2.8",
     "@reduxjs/toolkit": "^2.9.0",
+    "clsx": "^2.1.1",
     "next": "15.5.5",
     "react": "19.1.0",
     "react-dom": "19.1.0",
@@ -28,19 +30,19 @@
     "@storybook/addon-docs": "^10.0.7",
     "@storybook/addon-onboarding": "^10.0.7",
     "@storybook/addon-vitest": "^10.0.7",
+    "@storybook/nextjs-vite": "^10.0.7",
     "@types/node": "^20.19.25",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "@vitest/browser-playwright": "^4.0.9",
+    "@vitest/coverage-v8": "^4.0.9",
     "eslint-plugin-storybook": "^10.0.7",
     "globals": "^16.4.0",
+    "playwright": "^1.56.1",
     "sass": "^1.94.0",
     "storybook": "^10.0.7",
     "stylelint": "^16.25.0",
     "typescript": "^5",
-    "@storybook/nextjs-vite": "^10.0.7",
-    "vitest": "^4.0.9",
-    "playwright": "^1.56.1",
-    "@vitest/browser-playwright": "^4.0.9",
-    "@vitest/coverage-v8": "^4.0.9"
+    "vitest": "^4.0.9"
   }
 }

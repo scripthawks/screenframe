@@ -1,0 +1,75 @@
+@use '../../styles/index' as *;
+
+@mixin text-common-styles($font-size, $font-weight, $line-height) {
+  font-family: $font-family-primary;
+  font-size: $font-size;
+  font-weight: $font-weight;
+  line-height: $line-height;
+  color: $color-dark-100;
+}
+
+@mixin link-common-styles($font-size, $line-height) {
+  font-family: $font-family-primary;
+  font-size: $font-size;
+  font-weight: $font-weight-regular;
+  line-height: $line-height;
+  color: $color-accent-500;
+  text-decoration: underline;
+  text-decoration-skip-ink: none;
+}
+
+.large {
+  @include text-common-styles($font-size-xxl, $font-weight-semi-bold, $line-height-l);
+}
+
+.h1 {
+  @include text-common-styles($font-size-xl, $font-weight-bold, $line-height-l);
+}
+
+.h2 {
+  @include text-common-styles($font-size-l, $font-weight-bold, $line-height-m);
+}
+
+.h3 {
+  @include text-common-styles($font-size-m, $font-weight-semi-bold, $line-height-m);
+}
+
+.regularText16 {
+  @include text-common-styles($font-size-m, $font-weight-regular, $line-height-m);
+}
+
+.boldText16 {
+  @include text-common-styles($font-size-m, $font-weight-bold, $line-height-m);
+}
+
+.regularText14 {
+  @include text-common-styles($font-size-s, $font-weight-regular, $line-height-m);
+}
+
+.mediumText14 {
+  @include text-common-styles($font-size-s, $font-weight-medium, $line-height-m);
+}
+
+.boldText14 {
+  @include text-common-styles($font-size-s, $font-weight-bold, $line-height-m);
+}
+
+.regularText12 {
+  @include text-common-styles($font-size-xs, $font-weight-regular, $line-height-s);
+}
+
+.semiBoldText12 {
+  @include text-common-styles($font-size-xs, $font-weight-semi-bold, $line-height-s);
+}
+
+.regularLink {
+  @include link-common-styles($font-size-s, $line-height-m);
+}
+
+.smallLink {
+  @include link-common-styles($font-size-xs, $line-height-s);
+}
+
+.small {
+  @include text-common-styles($font-size-xxs, $font-weight-medium, $line-height-xs);
+}
