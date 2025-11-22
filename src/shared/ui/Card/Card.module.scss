@@ -1,0 +1,36 @@
+@use '../../styles/index.scss' as *;
+
+.cardWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+
+.cardField {
+  margin: auto;
+  min-width: 100px;
+  min-height: 100px;
+  border: 1px solid $color-dark-100;
+  background-color: $color-dark-500;
+  border-radius: 2px;
+}
+
+.cardHeader {
+  margin: 10px;
+}
+
+.cardFooter {
+  display: flex;
+  justify-content: space-between;
+  gap: 5px;
+  margin: 10px;
+}
+
+.cardContent {
+  display: flex;
+  flex-direction: column;
+  align-content: space-between;
+  margin: 10px;
+  gap: 10px;
+}
