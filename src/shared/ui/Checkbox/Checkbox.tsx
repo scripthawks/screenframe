@@ -2,6 +2,7 @@ import { type ComponentPropsWithRef, type ReactNode, useId } from 'react'
 import * as CheckboxRadix from '@radix-ui/react-checkbox'
 import { clsx } from 'clsx'
 import s from './Checkbox.module.scss'
+import Vector from '../../assets/icons/CheckmarkOutline'
 
 
 export type CheckboxProps = {

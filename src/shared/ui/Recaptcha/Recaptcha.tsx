@@ -1,6 +1,6 @@
 import clsx from 'clsx'
 import s from './Recaptcha..module.scss'
-import { CheckmarkRecaptcha, RecaptchaIcon } from '../../../../public/icons'
+import { CheckmarkRecaptcha, RecaptchaLogo1 } from '../../assets/icons'
 import { useEffect, useState } from 'react'
 import Link from 'next/link'
 import { CaptchaSpinner } from '../CaptchaSpinner'
@@ -110,7 +110,7 @@ export const Recaptcha = ({ className, isStatus = 'idle', onVerify }: RecaptchaP
         )}
         <div className={s.checkboxWrapper}>{renderCheckboxContent()}</div>
         <div className={s.privacy}>
-          <RecaptchaIcon className={s.icon} />
+          <RecaptchaLogo1 className={s.icon} />
           <label className={s.recaptcha}>reCAPTCHA</label>
           <div className={s.link}>
             <Link href="/">Privacy</Link>
