@@ -1,6 +1,6 @@
 import { type ComponentPropsWithoutRef, type ElementType, type ReactNode } from 'react'
 
-import clsx from 'clsx'
+import { clsx } from 'clsx'
 
 import styles from './Typography.module.scss'
 
