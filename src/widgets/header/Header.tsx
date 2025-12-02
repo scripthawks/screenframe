@@ -1,6 +1,5 @@
 'use client'
 import React, { useState } from 'react'
-
 import { BellOutlineIcon, FlagRussia, FlagUnitedKingdom } from '@/shared/assets/icons'
 import { Button, SelectBox, Typography } from '@/shared/ui'
 import Link from 'next/link'

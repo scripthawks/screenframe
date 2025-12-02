@@ -1,5 +1,4 @@
-import {Typography} from '@/shared/ui'
-import {Card, Button} from '@/shared/ui'
+import {Card, Button, Typography} from '@/shared/ui'
 import {Meta, StoryObj} from '@storybook/nextjs-vite'
 
 const meta: Meta<typeof Card> = {

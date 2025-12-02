@@ -1,5 +1,4 @@
 import { useState } from 'react'
-
 import { Checkbox } from '@/shared/ui'
 import { type Meta, type StoryObj } from '@storybook/nextjs-vite'
 
