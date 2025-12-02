@@ -1,8 +1,6 @@
-
-import { Meta, StoryObj } from '@storybook/react'
-import { Typography,  } from '@/shared/ui'
-import {Button} from "@/stories/Button";
-import {Card} from "@/shared/ui/Card/Card";
+import {Typography} from '@/shared/ui'
+import {Card, Button} from '@/shared/ui'
+import {Meta, StoryObj} from '@storybook/nextjs-vite'
 
 const meta: Meta<typeof Card> = {
     title: 'Components/Card',
@@ -21,19 +19,19 @@ export const CardWithAuth: Story = {
     render: () => (
         <Card
             title={
-                <Typography as="label" variant="boldText14">
+                <Typography as={'label'} variant={'boldText14'}>
                     Sign In
                 </Typography>
             }
             footer={
                 <>
-                    <Button primary={true} size="medium" label="Primary Button" />
-                    <Button primary={false} size="medium" label="Secondary Button" />
+                    <Button variant={'primary'} children={'Primary button'} />
+                    <Button variant={'secondary'} children={'Secondary Button'}/>
                 </>
             }
         >
-            <input placeholder="Email" />
-            <input placeholder="Password" />
+            <input placeholder={'Email'}/>
+            <input placeholder={'Password'}/>
         </Card>
     ),
 }

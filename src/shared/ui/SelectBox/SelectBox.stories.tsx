@@ -1,8 +1,11 @@
-import type { Meta, StoryObj } from '@storybook/react'
-import { SelectBox } from '@/shared/ui'
-import styles from './selectBox.module.scss'
-import { FlagRussia, FlagUnitedKingdom } from '@/shared/assets/icons'
+import type { Meta, StoryObj } from '@storybook/nextjs-vite'
+
 import { useState } from 'react'
+
+import { FlagRussia, FlagUnitedKingdom } from '@/shared/assets/icons'
+import { SelectBox } from '@/shared/ui'
+
+import styles from './selectBox.module.scss'
 
 const meta = {
   title: 'Components/SelectBox',
@@ -28,6 +31,7 @@ const defaultOptions = [
 export const Default: Story = {
   render: () => {
     const [value, setValue] = useState(defaultOptions[0].value)
+
     return (
       <SelectBox
         options={defaultOptions}
@@ -44,11 +48,12 @@ export const Default: Story = {
 export const Disabled: Story = {
   render: () => {
     const [value, setValue] = useState(defaultOptions[0].value)
+
     return (
       <SelectBox
         options={defaultOptions}
         value={value}
-        disabled={true}
+        disabled
         onChange={setValue}
         variant={'desktop'}
         label={'Select-Box'}
@@ -66,6 +71,7 @@ const flagOptions = [
 export const Languages: Story = {
   render: () => {
     const [value, setValue] = useState(flagOptions[0].value)
+
     return (
       <SelectBox
         options={flagOptions}
@@ -81,6 +87,7 @@ export const Languages: Story = {
 export const LanguagesMobile: Story = {
   render: () => {
     const [value, setValue] = useState(flagOptions[0].value)
+
     return (
       <SelectBox
         options={flagOptions}
@@ -88,7 +95,7 @@ export const LanguagesMobile: Story = {
         onChange={setValue}
         variant={'mobileLang'}
         className={styles.mobileLang}
-        isMobile={true}
+        isMobile
       />
     )
   },
@@ -99,13 +106,14 @@ const paginationOptions = [{ value: '10' }, { value: '100' }, { value: '1000' },
 export const Pagination: Story = {
   render: () => {
     const [value, setValue] = useState(paginationOptions[0].value)
+
     return (
       <SelectBox
         options={paginationOptions}
         value={value}
         onChange={setValue}
         variant={'pagination'}
-        isMobile={true}
+        isMobile
       />
     )
   },

@@ -1,5 +1,5 @@
-import { type Meta, type StoryObj } from '@storybook/react'
-import { CaptchaSpinner } from './CaptchaSpinner'
+import { type Meta, type StoryObj } from '@storybook/nextjs-vite'
+import { CaptchaSpinner } from '@/shared'
 
 const meta = {
   component: CaptchaSpinner,
