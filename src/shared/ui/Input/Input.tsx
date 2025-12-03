@@ -1,5 +1,13 @@
 'use client'
-import React, { useState, forwardRef, useId, type InputHTMLAttributes, type ReactNode } from 'react'
+import {
+  useState,
+  forwardRef,
+  useId,
+  KeyboardEvent,
+  type InputHTMLAttributes,
+  type ReactNode,
+  ChangeEvent,
+} from 'react'
 
 import { EyeOffOutline, EyeOutline, Search } from '@/shared/assets/icons'
 import { Typography } from '@/shared/ui'
@@ -15,6 +23,7 @@ export type InputProps = Omit<InputHTMLAttributes<HTMLInputElement>, 'type'> & {
   variant?: Variant
   startIcon?: ReactNode
   endIcon?: ReactNode
+  onChangeValue?: (value: string) => void
   onEnter?: () => void
 }
 
@@ -26,9 +35,12 @@ const Input = forwardRef<HTMLInputElement, InputProps>((props, ref) => {
     startIcon,
     endIcon,
     variant = 'text',
+    onChange,
+    onChangeValue,
     onEnter,
     onKeyDown,
     disabled,
+    value,
     ...rest
   } = props
 
@@ -39,6 +51,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>((props, ref) => {
 
   const isPassword = variant === 'password'
   const isSearch = variant === 'search'
+  // eslint-disable-next-line no-nested-ternary
   const htmlType = isPassword ? (showPassword ? 'text' : 'password') : variant
 
   const wrapperClasses = clsx(s.inputWrapper, {
@@ -59,7 +72,12 @@ const Input = forwardRef<HTMLInputElement, InputProps>((props, ref) => {
 
   const handleTogglePassword = () => setShowPassword(prev => !prev)
 
-  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+  const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
+    onChange?.(e)
+    onChangeValue?.(e.target.value)
+  }
+
+  const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter') {
       onEnter?.()
     }
@@ -92,20 +110,28 @@ const Input = forwardRef<HTMLInputElement, InputProps>((props, ref) => {
           className={inputClasses}
           aria-invalid={!!error}
           aria-describedby={error ? `${inputId}-error` : undefined}
+          onChange={handleInputChange}
           onKeyDown={handleKeyDown}
+          value={value}
           {...rest}
         />
 
         {isPassword ? (
-          <button
-            type={'button'}
-            aria-label={showPassword ? 'Скрыть пароль' : 'Показать пароль'}
-            disabled={disabled}
-            className={clsx(s.inputIcon, s.endIcon)}
-            onClick={handleTogglePassword}
-          >
-            {showPassword ? <EyeOffOutline /> : <EyeOutline />}
-          </button>
+          <>
+            {showPassword ? (
+              <EyeOffOutline
+                aria-label={showPassword ? 'Скрыть пароль' : 'Показать пароль'}
+                className={clsx(s.inputIcon, s.endIcon)}
+                onClick={handleTogglePassword}
+              />
+            ) : (
+              <EyeOutline
+                aria-label={showPassword ? 'Скрыть пароль' : 'Показать пароль'}
+                className={clsx(s.inputIcon, s.endIcon)}
+                onClick={handleTogglePassword}
+              />
+            )}
+          </>
         ) : (
           endIcon && <div className={clsx(s.inputIcon, s.endIcon)}>{endIcon}</div>
         )}
