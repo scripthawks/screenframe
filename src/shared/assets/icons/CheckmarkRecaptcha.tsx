@@ -6,6 +6,8 @@ const SvgComponent = (props: SVGProps<SVGSVGElement>, ref: Ref<SVGSVGElement>) =
     height={'19'}
     viewBox={'0 0 25 19'}
     fill={'none'}
+    ref={ref}
+    {...props}
   >
     <path
       d={
