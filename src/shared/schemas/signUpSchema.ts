@@ -27,7 +27,9 @@ export const createSignUpSchema = (t: LocalesType) => {
           t.auth.authErrors.password.regex
         ),
       passwordConfirm: z.string().trim().nonempty(t.auth.authErrors.passwordConfirm),
-      agreeToTerms: z.boolean().refine(value => value),
+      agreeToTerms: z.boolean().refine(value => value, {
+        message: t.auth.authErrors.terms,
+      }),
     })
     .refine(data => data.password === data.passwordConfirm, {
       message: t.auth.authErrors.refine,
