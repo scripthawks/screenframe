@@ -1,12 +1,12 @@
 import { useEffect, useState } from 'react'
 
-import { Checkbox, CaptchaSpinner } from '@/shared/ui'
+import { CaptchaSpinner, Checkbox } from '@/shared'
+import { CheckmarkRecaptcha, RecaptchaLogo1 } from '@/shared/assets/icons'
+import * as LabelRadix from '@radix-ui/react-label'
 import { clsx } from 'clsx'
 import Link from 'next/link'
 
-import s from './Recaptcha..module.scss'
-
-import { CheckmarkRecaptcha, RecaptchaLogo1 } from '../../assets/icons'
+import s from './Recaptcha.module.scss'
 
 export type RecaptchaStatus = 'idle' | 'pending' | 'verified' | 'error' | 'expired' | 'notVerified'
 type RecaptchaProps = {
@@ -19,8 +19,8 @@ type RecaptchaProps = {
 export const Recaptcha = ({ className, isStatus = 'idle', onVerify }: RecaptchaProps) => {
   const [checked, setChecked] = useState<boolean | 'indeterminate'>(false)
   const handleCheckboxChange = (checked: boolean) => {
-    setChecked(checked === true)
-    if (checked === true && onVerify) {
+    setChecked(checked)
+    if (checked && onVerify) {
       onVerify()
     }
   }
@@ -72,14 +72,14 @@ export const Recaptcha = ({ className, isStatus = 'idle', onVerify }: RecaptchaP
         return (
           <div className={s.loaderContainer}>
             <CaptchaSpinner />
-            <span className={classNames.label}>I'm not a robot</span>
+            <LabelRadix.Root className={classNames.label}>I&#39;m not a robot</LabelRadix.Root>
           </div>
         )
       case 'verified':
         return (
           <>
             <CheckmarkRecaptcha className={s.check} />
-            <span className={classNames.label}>I'm not a robot</span>
+            <LabelRadix.Root className={classNames.label}>I&#39;m not a robot</LabelRadix.Root>
           </>
         )
       default:

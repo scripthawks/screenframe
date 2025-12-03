@@ -1,6 +1,6 @@
 import { useState } from 'react'
 
-import { Recaptcha } from '@/shared/ui'
+import { Recaptcha } from '@/shared'
 import { Meta, StoryObj } from '@storybook/nextjs-vite'
 
 const meta = {
