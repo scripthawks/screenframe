@@ -1,183 +1,172 @@
-@use '../../styles/index.scss' as *;
+@import '@/shared/styles/typography';
+@import '@/shared/styles/colors';
 
-@mixin button {
-  $font-family-primary: 'Inter', sans-serif;
+@mixin button($color: $color-light-100, $bgColor: $color-accent-500) {
+  all: unset;
 
   cursor: pointer;
+  user-select: none;
 
   display: inline-flex;
+  flex-shrink: 0;
+  gap: 10px;
   align-items: center;
-  justify-content: center;
 
+  box-sizing: border-box;
   padding: 6px 24px;
-  border: none;
-  border-radius: 2px;
 
-  font-family: $font-family-primary;
   font-size: $font-size-m;
   font-weight: $font-weight-semi-bold;
   line-height: $line-height-m;
-  text-align: center;
+  color: $color;
   text-decoration: none;
 
-  background-color: transparent;
+  background-color: $bgColor;
+  border-radius: 2px;
 
-  transition: 0.2s ease-in-out;
-
-  &:focus-visible {
-    outline: 1px solid $color-accent-700;
-  }
+  transition: all 0.2s ease-in-out;
 
   &:disabled {
-    cursor: initial;
+    cursor: default;
+    color: $color-light-900;
+    background: $color-accent-900;
+  }
+
+  &:focus-visible {
+    outline: 2px solid $color-accent-300;
   }
 
   &.fullWidth {
     justify-content: center;
     width: 100%;
   }
-
-  &.mobile {
-    padding: 6px 12px;
-  }
 }
 
 .primary {
   @include button;
 
-  color: $color-light-100;
-  background-color: $color-accent-500;
-
-  &:hover {
-    background-color: $color-accent-100;
-  }
-
-  &:active {
-    color: $color-light-500;
+  &:active:not(:disabled) {
     background-color: $color-accent-700;
   }
 
-  &:disabled {
-    color: $color-light-900;
-    background-color: $color-accent-900;
+  &:hover:not(:disabled) {
+    background-color: $color-accent-300;
   }
 }
 
 .secondary {
-  @include button;
-
-  color: $color-light-100;
-  background-color: $color-dark-300;
-
-  &:hover {
-    background-color: $color-dark-100;
-  }
-
-  &:active {
-    background-color: $color-dark-300;
-  }
-
-  &:focus-visible {
-    outline: 1px solid $color-accent-300;
-  }
+  @include button($bgColor: $color-dark-300);
 
   &:disabled {
     color: $color-light-900;
-    background-color: $color-dark-500;
+    background: $color-dark-500;
+  }
+
+  &:active:not(:disabled) {
+    background-color: #212121;
+  }
+
+  &:hover:not(:disabled) {
+    background-color: $color-dark-100;
+  }
+
+  &:focus:not(:disabled) {
+    color: $color-accent-700;
+    outline: 2px solid $color-accent-700;
   }
 }
 
-.outline {
-  @include button;
+.outlined {
+  @include button($color: $color-accent-500, $bgColor: none);
 
-  border: 1px solid $color-accent-500;
-  color: $color-accent-500;
-  background-color: transparent;
-
-  &:hover {
-    border: 1px solid $color-accent-100;
-    color: $color-accent-100;
-  }
-
-  &:active {
-    border: 1px solid $color-accent-700;
-    color: $color-accent-700;
-  }
+  outline: 2px solid $color-accent-500;
 
   &:disabled {
-    border: 1px solid $color-accent-900;
     color: $color-accent-900;
+    outline: 2px solid $color-accent-900;
+  }
+
+  &:active:not(:disabled) {
+    color: $color-accent-700;
+    outline: 2px solid $color-accent-700;
+  }
+
+  &:hover:not(:disabled) {
+    color: $color-accent-100;
+    outline: 2px solid $color-accent-100;
+  }
+
+  &:focus:not(:disabled) {
+    color: $color-accent-700;
+    outline: 2px solid $color-accent-700;
   }
 }
 
 .text {
-  @include button;
-
-  color: $color-accent-500;
-
-  &:hover {
-    color: $color-accent-100;
-  }
-
-  &:active {
-    color: $color-accent-700;
-  }
+  @include button($color: $color-accent-500, $bgColor: transparent);
 
   &:disabled {
     color: $color-accent-900;
   }
-}
 
-.link {
-  @include button;
-  padding: 0;
-  font-size: $font-size-xs;
-  font-weight: $font-weight-regular;
-  line-height: $line-height-s;
-  text-decoration: underline;
-
-  color: $color-accent-500;
-
-  &:hover {
-    color: $color-accent-100;
+  &:focus {
+    outline: 2px solid $color-accent-700;
   }
 
-  &:active {
+  &:focus-visible {
+    outline: 2px solid $color-accent-300;
+  }
+
+  &:active:not(:disabled) {
     color: $color-accent-700;
   }
 
-  &:disabled {
-    color: $color-accent-900;
+  &:hover:not(:disabled) {
+    color: $color-accent-100;
   }
 }
 
 .withIcon {
-  @include button;
+  @include button($color: $color-light-100);
 
-  gap: 12px;
   padding: 6px 12px;
-  color: $color-light-100;
 
-  &:hover {
-    color: $color-accent-100;
-  }
-
-  &:active {
-    color: $color-accent-500;
+  &:disabled {
+    color: $color-dark-100;
   }
 
   &:focus-visible {
     outline: 1px solid $color-accent-700;
   }
 
-  &:disabled {
-    color: $color-dark-100;
+  &:active:not(:disabled) {
+    color: $color-accent-500;
+  }
+
+  &:hover:not(:disabled) {
+    color: $color-accent-100;
   }
 }
 
-.isWithIcon {
-  gap: 12px;
-  padding: 6px 12px;
+.link {
+  @include button($color: $color-accent-500);
+  padding: 0;
+  font-size: $font-size-xs;
+  font-weight: $font-weight-regular;
+  line-height: $line-height-s;
+  text-decoration: underline;
+
+  &:disabled {
+    color: $color-accent-900;
+  }
+
+  &:active:not(:disabled) {
+    color: $color-accent-700;
+  }
+
+  &:hover:not(:disabled) {
+    color: $color-accent-100;
+  }
 }
 
 .compact {

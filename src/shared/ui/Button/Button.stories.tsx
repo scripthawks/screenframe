@@ -1,7 +1,7 @@
-import type { Meta, StoryObj } from '@storybook/nextjs-vite'
 import { FlagUnitedKingdom, LogOut, SettingsOutline } from '@/shared/assets/icons'
 import { Button, Typography } from '@/shared/ui'
-import {fn} from "@vitest/spy";
+import { Meta, StoryObj } from '@storybook/nextjs-vite'
+import { fn } from '@vitest/spy'
 
 const meta: Meta = {
   title: 'Components/Button',
@@ -43,11 +43,11 @@ export const Secondary: Story = {
   },
 }
 
-export const Outline: Story = {
+export const Outlined: Story = {
   args: {
     ...Primary.args,
-    children: 'Outline Button',
-    variant: 'outline',
+    children: 'Outlined Button',
+    variant: 'outlined',
   },
 }
 
@@ -56,7 +56,7 @@ export const FullWidth: Story = {
     ...Primary.args,
     className: 'fullWidthButton',
     children: 'Full Width Button',
-    variant: 'outline',
+    variant: 'outlined',
     fullWidth: true,
   },
 }
