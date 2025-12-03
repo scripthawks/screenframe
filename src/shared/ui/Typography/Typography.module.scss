@@ -1,11 +1,12 @@
-@use '../../styles/index' as *;
+@import '@/shared/styles/typography';
+@import '@/shared/styles/colors';
 
 @mixin text-common-styles($font-size, $font-weight, $line-height) {
   font-family: $font-family-primary;
   font-size: $font-size;
   font-weight: $font-weight;
   line-height: $line-height;
-  color: $color-dark-100;
+  color: $color-light-100;
 }
 
 @mixin link-common-styles($font-size, $line-height) {
