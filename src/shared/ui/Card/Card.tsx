@@ -1,4 +1,4 @@
-import React, { ReactNode } from 'react'
+import { FC, ReactNode } from 'react'
 
 import { clsx } from 'clsx'
 
@@ -11,7 +11,7 @@ export interface CardProps {
   className?: string
 }
 
-export const Card: React.FC<CardProps> = ({ title, children, footer, className }) => {
+export const Card: FC<CardProps> = ({ title, children, footer, className }) => {
   return (
     <div className={styles.cardWrapper}>
       <div className={clsx(styles.cardField, className)}>
