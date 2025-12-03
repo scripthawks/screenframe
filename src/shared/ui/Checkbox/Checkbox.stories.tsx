@@ -1,6 +1,6 @@
-import { type Meta, type StoryObj } from '@storybook/react'
-import { Checkbox } from './Checkbox'
 import { useState } from 'react'
+import { Checkbox } from '@/shared/ui'
+import { type Meta, type StoryObj } from '@storybook/nextjs-vite'
 
 const meta = {
   component: Checkbox,

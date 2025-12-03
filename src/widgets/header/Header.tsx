@@ -1,9 +1,10 @@
 'use client'
 import React, { useState } from 'react'
-import s from './Header.module.scss'
-import { Button, SelectBox, Typography } from '@/shared/ui'
 import { BellOutlineIcon, FlagRussia, FlagUnitedKingdom } from '@/shared/assets/icons'
+import { Button, SelectBox, Typography } from '@/shared/ui'
 import Link from 'next/link'
+
+import s from './Header.module.scss'
 
 const options = [
   { value: 'Russian', icon: <FlagRussia /> },
@@ -16,12 +17,12 @@ export const Header = ({ is_auth = false }: { is_auth?: boolean }) => {
   return (
     <div className={s.wrapper}>
       <div className={s.container}>
-        <Typography variant="large">Inctagram</Typography>
+        <Typography variant={'large'}>Inctagram</Typography>
         <div className={s.content}>
           {is_auth && (
-            <Button variant="withIcon" className={s.bellButton}>
+            <Button variant={'withIcon'} className={s.bellButton}>
               <BellOutlineIcon />
-              <Typography as="span" variant="small">
+              <Typography as={'span'} variant={'small'}>
                 3
               </Typography>
             </Button>
@@ -36,9 +37,9 @@ export const Header = ({ is_auth = false }: { is_auth?: boolean }) => {
 
           {!is_auth && (
             <div className={s.buttonsContainer}>
-              <Button variant="text">Log in</Button>
+              <Button variant={'text'}>Log in</Button>
               <Button asChild>
-                <Link href="/sign-up">Sign up</Link>
+                <Link href={'/sign-up'}>Sign up</Link>
               </Button>
             </div>
           )}

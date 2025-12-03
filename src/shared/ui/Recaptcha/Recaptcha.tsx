@@ -1,10 +1,12 @@
-import clsx from 'clsx'
-import s from './Recaptcha..module.scss'
-import { CheckmarkRecaptcha, RecaptchaLogo1 } from '../../assets/icons'
 import { useEffect, useState } from 'react'
+
+import { Checkbox, CaptchaSpinner } from '@/shared/ui'
+import { clsx } from 'clsx'
 import Link from 'next/link'
-import { CaptchaSpinner } from '../CaptchaSpinner'
-import { Checkbox } from '../Checkbox'
+
+import s from './Recaptcha..module.scss'
+
+import { CheckmarkRecaptcha, RecaptchaLogo1 } from '../../assets/icons'
 
 export type RecaptchaStatus = 'idle' | 'pending' | 'verified' | 'error' | 'expired' | 'notVerified'
 type RecaptchaProps = {
@@ -70,14 +72,14 @@ export const Recaptcha = ({ className, isStatus = 'idle', onVerify }: RecaptchaP
         return (
           <div className={s.loaderContainer}>
             <CaptchaSpinner />
-            <Label className={classNames.label}>I'm not a robot</Label>
+            <span className={classNames.label}>I'm not a robot</span>
           </div>
         )
       case 'verified':
         return (
           <>
             <CheckmarkRecaptcha className={s.check} />
-            <Label className={classNames.label}>I'm not a robot</Label>
+            <span className={classNames.label}>I'm not a robot</span>
           </>
         )
       default:
@@ -85,7 +87,7 @@ export const Recaptcha = ({ className, isStatus = 'idle', onVerify }: RecaptchaP
           <Checkbox
             checked={checked}
             className={s.checkbox}
-            label="I'm not a robot"
+            label={"I'm not a robot"}
             labelClassName={s.labelchekbox}
             rootClassName={s.rootChekbox}
             onCheckedChange={handleCheckboxChange}
@@ -113,9 +115,9 @@ export const Recaptcha = ({ className, isStatus = 'idle', onVerify }: RecaptchaP
           <RecaptchaLogo1 className={s.icon} />
           <label className={s.recaptcha}>reCAPTCHA</label>
           <div className={s.link}>
-            <Link href="/">Privacy</Link>
+            <Link href={'/'}>Privacy</Link>
             <span>-</span>
-            <Link href="/">Terms</Link>
+            <Link href={'/'}>Terms</Link>
           </div>
         </div>
       </div>
