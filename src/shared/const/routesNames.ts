@@ -1,0 +1,17 @@
+export const RoutesNames = {
+  AUTH: '/auth',
+  CREATE_NEW_PASSWORD: '/auth/create-new-password',
+  FAVORITES: '/favorites',
+  FEED: '/feed',
+  FORGOT_PASSWORD: '/auth/forgot-password',
+  MESSENGER: '/messenger',
+  PASSWORD_RECOVERY: '/auth/password-recovery',
+  PRIVACY_POLICY: '/auth/privacy-policy',
+  PROFILE: '/profile',
+  PUBLIC_PROFILE: '/public-profile',
+  SEARCH: '/search',
+  SIGN_IN: '/auth/sign-in',
+  SIGN_UP: '/auth/sign-up',
+  STATISTICS: '/statistics',
+  TERMS_OF_SERVICE: '/auth/terms-of-service',
+}
