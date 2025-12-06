@@ -3,6 +3,8 @@ import { en } from './en'
 export type LocalesType = typeof en
 export const ru: LocalesType = {
   auth: {
+    agree: 'Я согласен с',
+    and: 'и',
     authErrors: {
       username: {
         min: 'Минимальное количество символов 6',
@@ -21,7 +23,23 @@ export const ru: LocalesType = {
         regex: `Пароль должен содержать A-z, 0-9, !"#$%&'()*+,-./:;<=>?@[\\]^_{|}~`,
       },
       passwordConfirm: 'Подтвердите ваш пароль',
-      refine: 'Пароли должны совпадать'
-    }
-  }
+      refine: 'Пароли должны совпадать',
+      terms: 'Пожалуйста ознакомьтесь и примите Правила сервиса и Политику конфиденциальности',
+    },
+    email: 'Электронная почта',
+    haveAccount: 'Уже зарегистрированы?',
+    logIn: 'Войти',
+    password: 'Пароль',
+    passwordConfirmation: 'Подтверждение пароля',
+    policy: 'Политикой',
+    signIn: 'Войти',
+    signUp: 'Зарегистрироваться',
+    terms: 'Правилами',
+    username: 'Имя пользователя'
+  },
+  locale: {
+    english: 'English',
+    language: 'Язык',
+    russian: 'Russian',
+  },
 }
