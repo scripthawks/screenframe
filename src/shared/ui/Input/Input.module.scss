@@ -1,9 +1,10 @@
-@use '../../styles/index.scss' as *;
+@import '@/shared/styles/typography';
+@import '@/shared/styles/colors';
 
 .inputWrapper {
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  //gap: 4px;
 
   &.inputDisabled {
     .inputInnerWrapper {

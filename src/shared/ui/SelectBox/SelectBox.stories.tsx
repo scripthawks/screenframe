@@ -1,11 +1,10 @@
-import type { Meta, StoryObj } from '@storybook/nextjs-vite'
-
 import { useState } from 'react'
 
+import { SelectBox } from '@/shared'
 import { FlagRussia, FlagUnitedKingdom } from '@/shared/assets/icons'
-import { SelectBox } from '@/shared/ui'
+import { Meta, StoryObj } from '@storybook/nextjs-vite'
 
-import styles from './selectBox.module.scss'
+import s from './SelectBox.module.scss'
 
 const meta = {
   title: 'Components/SelectBox',
@@ -21,11 +20,11 @@ export default meta
 type Story = StoryObj<typeof SelectBox>
 
 const defaultOptions = [
-  { value: 'Select-box1' },
-  { value: 'Select-box2' },
-  { value: 'Select-box3' },
-  { value: 'Select-box4' },
-  { value: 'Select-box5' },
+  { label: 'Select-box1', value: 'Select-box1' },
+  { label: 'Select-box2', value: 'Select-box2' },
+  { label: 'Select-box3', value: 'Select-box3' },
+  { label: 'Select-box4', value: 'Select-box4' },
+  { label: 'Select-box5', value: 'Select-box5' },
 ]
 
 export const Default: Story = {
@@ -39,7 +38,7 @@ export const Default: Story = {
         onChange={setValue}
         variant={'desktop'}
         label={'Select-Box'}
-        className={styles.testDesktopWidth}
+        className={s.testDesktopWidth}
       />
     )
   },
@@ -57,15 +56,15 @@ export const Disabled: Story = {
         onChange={setValue}
         variant={'desktop'}
         label={'Select-Box'}
-        className={styles.testDesktopWidth}
+        className={s.testDesktopWidth}
       />
     )
   },
 }
 
 const flagOptions = [
-  { value: 'Russian', icon: <FlagRussia /> },
-  { value: 'UK', icon: <FlagUnitedKingdom /> },
+  { label: 'Russian', image: <FlagRussia />, value: 'ru' },
+  { label: 'English', image: <FlagUnitedKingdom />, value: 'en' },
 ]
 
 export const Languages: Story = {
@@ -78,7 +77,7 @@ export const Languages: Story = {
         value={value}
         onChange={setValue}
         variant={'desktop'}
-        className={styles.testLangWidth}
+        className={s.testLangWidth}
       />
     )
   },
@@ -94,14 +93,19 @@ export const LanguagesMobile: Story = {
         value={value}
         onChange={setValue}
         variant={'mobileLang'}
-        className={styles.mobileLang}
+        className={s.mobileLang}
         isMobile
       />
     )
   },
 }
 
-const paginationOptions = [{ value: '10' }, { value: '100' }, { value: '1000' }, { value: '10000' }]
+const paginationOptions = [
+  { label: '10', value: '10' },
+  { label: '100', value: '100' },
+  { label: '1000', value: '1000' },
+  { label: '10000', value: '10000' },
+]
 
 export const Pagination: Story = {
   render: () => {

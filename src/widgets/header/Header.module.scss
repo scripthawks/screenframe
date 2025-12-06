@@ -1,4 +1,4 @@
-@use '../../shared/styles/index.scss' as *;
+@import '@/shared/styles/colors';
 
 .container {
   display: flex;
@@ -23,6 +23,12 @@
 .content {
   display: flex;
   align-items: center;
+  gap: 36px;
+
+  .options {
+    display: flex;
+    gap: 45px;
+  }
 
   & > button {
     padding: 0;
@@ -32,6 +38,9 @@
 .bellButton {
   position: relative;
   padding: 0;
+
+  justify-content: center; /* Горизонтальное центрирование */
+  align-items: center;
 
   & > span {
     position: absolute;
@@ -55,9 +64,7 @@
   align-items: center;
   margin-left: 36px;
 
-  & > button,
-  a {
-    width: 100px;
-    padding: 6px 20px;
+  .logInButtonText {
+    color: $color-accent-500;
   }
 }

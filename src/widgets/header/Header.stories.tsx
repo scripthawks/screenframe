@@ -19,12 +19,12 @@ type Story = StoryObj<typeof meta>
 
 export const Authorized: Story = {
   args: {
-    is_auth: true,
+    isAuth: true,
   },
 }
 
 export const NotAuthorized: Story = {
   args: {
-    is_auth: false,
+    isAuth: false,
   },
 }

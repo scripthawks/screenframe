@@ -1,10 +1,10 @@
-import { type Meta, type StoryObj } from '@storybook/nextjs-vite'
-import { CaptchaSpinner } from '@/shared/ui'
+import { CaptchaSpinner } from '@/shared'
+import { Meta, StoryObj } from '@storybook/nextjs-vite'
 
 const meta = {
   component: CaptchaSpinner,
   tags: ['autodocs'],
-  title: 'Components/UI/CaptchaSpinner',
+  title: 'Components/CaptchaSpinner',
   args: {},
 } satisfies Meta<typeof CaptchaSpinner>
 
