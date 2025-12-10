@@ -7,7 +7,7 @@ import s from './page.module.scss'
 export default function AuthLayout({ children }: { children: ReactNode }) {
   return (
     <div className={s.container}>
-      <Header is_auth />
+      <Header isAuth />
       <main className={s.main}>{children}</main>
     </div>
   )
