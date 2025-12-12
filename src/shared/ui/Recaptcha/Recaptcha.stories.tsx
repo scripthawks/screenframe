@@ -1,6 +1,7 @@
-import { Meta, StoryObj } from '@storybook/react'
-import { Recaptcha } from './Recaptcha'
 import { useState } from 'react'
+
+import { Recaptcha } from '@/shared'
+import { Meta, StoryObj } from '@storybook/nextjs-vite'
 
 const meta = {
   component: Recaptcha,
@@ -21,6 +22,7 @@ export const Controlled: Story = {
       setStatus('pending')
       setTimeout(() => {
         const random = Math.random()
+
         if (random > 0.7) {
           setStatus('verified')
         } else if (random > 0.4) {

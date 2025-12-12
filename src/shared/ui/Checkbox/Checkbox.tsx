@@ -1,11 +1,15 @@
 import { type ComponentPropsWithRef, type ReactNode, useId } from 'react'
-import * as CheckboxRadix from '@radix-ui/react-checkbox'
-import { clsx } from 'clsx'
-import s from './Checkbox.module.scss'
-import Vector from '../../assets/icons/CheckmarkOutline'
 
+import { Typography } from '@/shared'
+import { CheckmarkOutline } from '@/shared/assets/icons'
+import * as CheckboxRadix from '@radix-ui/react-checkbox'
+import * as LabelRadix from '@radix-ui/react-label'
+import { clsx } from 'clsx'
+
+import s from './Checkbox.module.scss'
 
 export type CheckboxProps = {
+  error?: string
   label?: ReactNode
   rootClassName?: string
   indicatorClassName?: string
@@ -22,36 +26,47 @@ export const Checkbox = ({
   indicatorClassName,
   rootClassName,
   labelClassName,
+  error,
   ...rest
 }: CheckboxProps) => {
   const generatedId = useId()
   const checkboxId = id ?? generatedId
 
   const classNames = {
+    checkbox: clsx(s.checkbox, disabled && s.disabled),
+    checkboxIcon: clsx(s.checkboxIcon),
+    checkboxContainer: clsx(s.checkboxContainer, disabled && s.disabled),
     container: clsx(s.container, className),
-    root: clsx(s.root, disabled && s.disabled, rootClassName),
-    indictor: clsx(s.indicator, indicatorClassName),
+    error: clsx(error && s.error),
+    indicator: clsx(s.indicator, indicatorClassName),
     label: clsx(s.label, disabled && s.disabled, labelClassName),
   }
 
   return (
     <div className={classNames.container}>
-      <CheckboxRadix.Root
-        {...rest}
-        checked={checked}
-        className={classNames.root}
-        disabled={disabled}
-        id={checkboxId}
-        onCheckedChange={onCheckedChange}
-      >
-        <CheckboxRadix.Indicator>
-          <Vector />
-        </CheckboxRadix.Indicator>
-      </CheckboxRadix.Root>
-      {label && (
-        <label className={classNames.label} htmlFor={checkboxId}>
+      <LabelRadix.Root className={s.root}>
+        <Typography as={'label'} className={classNames.label} variant={'regularText14'}>
+          <div className={classNames.checkboxContainer}>
+            <CheckboxRadix.Root
+              {...rest}
+              checked={checked}
+              className={classNames.checkbox}
+              disabled={disabled}
+              id={checkboxId}
+              onCheckedChange={onCheckedChange}
+            >
+              <CheckboxRadix.Indicator className={classNames.indicator}>
+                <CheckmarkOutline className={classNames.checkboxIcon} />
+              </CheckboxRadix.Indicator>
+            </CheckboxRadix.Root>
+          </div>
           {label}
-        </label>
+        </Typography>
+      </LabelRadix.Root>
+      {error && (
+        <Typography className={classNames.error} variant={'regularText14'}>
+          {error}
+        </Typography>
       )}
     </div>
   )

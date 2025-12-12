@@ -1,0 +1,13 @@
+@import '@/shared/styles/mixins';
+
+.container {
+  @include flex-block;
+
+  .main {
+    @include flex-block($justify-content: 'unset');
+
+    width: 100%;
+    height: calc(100vh - 69px);
+    padding-top: 24px;
+  }
+}

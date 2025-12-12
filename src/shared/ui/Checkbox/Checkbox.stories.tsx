@@ -1,11 +1,12 @@
-import { type Meta, type StoryObj } from '@storybook/react'
-import { Checkbox } from './Checkbox'
 import { useState } from 'react'
+
+import { Checkbox } from '@/shared'
+import { Meta, StoryObj } from '@storybook/nextjs-vite'
 
 const meta = {
   component: Checkbox,
   tags: ['autodocs'],
-  title: 'Components/UI/Checkbox',
+  title: 'Components/Checkbox',
 } satisfies Meta<typeof Checkbox>
 
 export default meta

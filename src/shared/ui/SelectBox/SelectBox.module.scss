@@ -1,0 +1,136 @@
+@import '@/shared/styles/colors';
+@import '@/shared/styles/typography';
+
+.testDesktopWidth {
+  width: 240px;
+}
+
+.testLangWidth {
+  width: 163px;
+}
+
+.selectedIcon {
+  transform: rotate(0deg);
+  display: inline-flex;
+  align-items: center;
+  transition: transform 0.3s ease;
+}
+
+.trigger {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  width: 100%;
+  padding: 6px 12px;
+  border: 1px solid $color-dark-100;
+  border-radius: 2px;
+
+  font-family: $font-family-primary;
+  line-height: $line-height-m;
+  color: $color-light-100;
+
+  background-color: transparent;
+
+  &:hover {
+    border-color: $color-light-900;
+    color: $color-light-900;
+  }
+
+  &:focus {
+    border-color: $color-accent-500;
+    color: $color-light-900;
+    outline: none;
+  }
+
+  &:disabled {
+    cursor: not-allowed;
+    border-color: $color-dark-100;
+    color: $color-dark-100;
+
+    &:hover {
+      border-color: $color-dark-100;
+      color: $color-dark-100;
+    }
+  }
+
+  &[data-state='open'] {
+    border-color: $color-light-100;
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
+
+    .selectedIcon {
+      transform: rotate(180deg);
+    }
+  }
+}
+
+.triggerValue {
+  display: flex;
+  gap: 12px;
+}
+
+.icon {
+  display: inline-flex;
+  align-items: center;
+}
+
+.mobileLang {
+  border: none;
+  font-size: $font-size-s;
+}
+
+.desktop {
+  font-size: $font-size-m;
+}
+
+.pagination {
+  padding-top: 0;
+  padding-bottom: 0;
+  font-size: $font-size-s;
+}
+
+.content {
+  transform-origin: top;
+
+  overflow: hidden;
+
+  border: 1px solid $color-dark-100;
+  border-radius: 0 0 2px 2px;
+
+  font-family: $font-family-primary;
+  line-height: $line-height-m;
+  color: $color-light-100;
+
+  &[data-state='open'] {
+    border-color: $color-light-100;
+  }
+}
+
+.item {
+  cursor: pointer;
+
+  display: flex;
+  gap: 12px;
+  align-items: center;
+
+  padding: 6px 12px;
+
+  &:hover {
+    border: none;
+    color: $color-accent-500;
+    background-color: $color-dark-300;
+    outline: none;
+  }
+
+  &:focus {
+    border: none;
+    color: $color-accent-500;
+    background-color: $color-dark-300;
+    outline: none;
+  }
+}
+
+.inputLabel {
+  color: $color-light-900;
+}

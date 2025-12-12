@@ -1,0 +1,136 @@
+@import '@/shared/styles/typography';
+@import '@/shared/styles/colors';
+
+.inputWrapper {
+  display: flex;
+  flex-direction: column;
+  //gap: 4px;
+
+  &.inputDisabled {
+    .inputInnerWrapper {
+      .inputIcon {
+        cursor: not-allowed;
+
+        svg {
+          color: $color-dark-100;
+        }
+      }
+    }
+  }
+}
+
+.inputLabel {
+  color: $color-light-900;
+}
+
+.inputInnerWrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+
+  // Search icon становится белой при фокусе
+  &:focus-within {
+    .inputIcon.startIcon svg {
+      color: $color-light-100;
+    }
+  }
+
+  // Search icon становится белой при активном (mousedown)
+  &:active {
+    .inputIcon.startIcon svg {
+      color: $color-light-100;
+    }
+  }
+}
+
+.inputField {
+  width: 100%;
+  background: transparent;
+  border: 1px solid $color-dark-100;
+  border-radius: 6px;
+  padding: 8px 12px;
+  transition: border-color 0.2s;
+
+  font-family: $font-family-primary;
+  font-size: $font-size-m;
+  font-weight: $font-weight-regular;
+  line-height: $line-height-m;
+
+  &::placeholder {
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 24px;
+    color: $color-light-900;
+  }
+
+  // Отступы для иконок
+  &.withStartIcon {
+    padding-left: 40px;
+  }
+
+  &.withEndIcon {
+    padding-right: 40px;
+  }
+
+  &:hover {
+    border-color: $color-light-900;
+  }
+
+  &:focus {
+    border-color: $color-accent-500;
+    outline: none;
+  }
+
+  &:active {
+    border-color: $color-light-100;
+  }
+
+  &.inputError {
+    border-color: $color-danger-500;
+
+    &:focus {
+      border-color: $color-danger-500;
+    }
+  }
+
+  &.inputDisabled {
+    color: $color-dark-100;
+    border-color: $color-dark-100;
+    cursor: not-allowed;
+    opacity: 0.5;
+  }
+}
+
+.inputIcon {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+
+  svg {
+    color: $color-light-100;
+  }
+
+  &.startIcon {
+    left: 12px;
+
+    svg {
+      color: $color-light-900;
+    }
+  }
+
+  &.endIcon {
+    right: 12px;
+
+    svg {
+      color: $color-light-100;
+    }
+  }
+}
+
+span.inputErrorMessage {
+  color: $color-danger-500;
+}

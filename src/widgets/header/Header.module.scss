@@ -1,0 +1,70 @@
+@import '@/shared/styles/colors';
+
+.container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  width: 100%;
+  margin: 0 auto;
+  padding: 12px 64px 12px 60px;
+
+  .select {
+    width: 163px;
+    margin-left: 45px;
+  }
+}
+
+.wrapper {
+  width: 100%;
+  border-bottom: 1px solid $color-dark-300;
+}
+
+.content {
+  display: flex;
+  align-items: center;
+  gap: 36px;
+
+  .options {
+    display: flex;
+    gap: 45px;
+  }
+
+  & > button {
+    padding: 0;
+  }
+}
+
+.bellButton {
+  position: relative;
+  padding: 0;
+
+  justify-content: center; /* Горизонтальное центрирование */
+  align-items: center;
+
+  & > span {
+    position: absolute;
+    right: 0;
+    top: 0;
+
+    align-items: center;
+    align-content: center;
+
+    width: 13px;
+    height: 13px;
+
+    border-radius: 50%;
+    background-color: $color-danger-500;
+  }
+}
+
+.buttonsContainer {
+  display: flex;
+  gap: 24px;
+  align-items: center;
+  margin-left: 36px;
+
+  .logInButtonText {
+    color: $color-accent-500;
+  }
+}

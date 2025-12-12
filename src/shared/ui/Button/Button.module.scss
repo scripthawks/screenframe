@@ -1,0 +1,174 @@
+@import '@/shared/styles/typography';
+@import '@/shared/styles/colors';
+
+@mixin button($color: $color-light-100, $bgColor: $color-accent-500) {
+  all: unset;
+
+  cursor: pointer;
+  user-select: none;
+
+  display: inline-flex;
+  flex-shrink: 0;
+  gap: 10px;
+  align-items: center;
+
+  box-sizing: border-box;
+  padding: 6px 24px;
+
+  font-size: $font-size-m;
+  font-weight: $font-weight-semi-bold;
+  line-height: $line-height-m;
+  color: $color;
+  text-decoration: none;
+
+  background-color: $bgColor;
+  border-radius: 2px;
+
+  transition: all 0.2s ease-in-out;
+
+  &:disabled {
+    cursor: default;
+    color: $color-light-900;
+    background: $color-accent-900;
+  }
+
+  &:focus-visible {
+    outline: 2px solid $color-accent-300;
+  }
+
+  &.fullWidth {
+    justify-content: center;
+    width: 100%;
+  }
+}
+
+.primary {
+  @include button;
+
+  &:active:not(:disabled) {
+    background-color: $color-accent-700;
+  }
+
+  &:hover:not(:disabled) {
+    background-color: $color-accent-300;
+  }
+}
+
+.secondary {
+  @include button($bgColor: $color-dark-300);
+
+  &:disabled {
+    color: $color-light-900;
+    background: $color-dark-500;
+  }
+
+  &:active:not(:disabled) {
+    background-color: #212121;
+  }
+
+  &:hover:not(:disabled) {
+    background-color: $color-dark-100;
+  }
+
+  &:focus:not(:disabled) {
+    color: $color-accent-700;
+    outline: 2px solid $color-accent-700;
+  }
+}
+
+.outlined {
+  @include button($color: $color-accent-500, $bgColor: none);
+
+  outline: 2px solid $color-accent-500;
+
+  &:disabled {
+    color: $color-accent-900;
+    outline: 2px solid $color-accent-900;
+  }
+
+  &:active:not(:disabled) {
+    color: $color-accent-700;
+    outline: 2px solid $color-accent-700;
+  }
+
+  &:hover:not(:disabled) {
+    color: $color-accent-100;
+    outline: 2px solid $color-accent-100;
+  }
+
+  &:focus:not(:disabled) {
+    color: $color-accent-700;
+    outline: 2px solid $color-accent-700;
+  }
+}
+
+.text {
+  @include button($color: $color-accent-500, $bgColor: transparent);
+
+  &:disabled {
+    color: $color-accent-900;
+  }
+
+  &:focus {
+    outline: 2px solid $color-accent-700;
+  }
+
+  &:focus-visible {
+    outline: 2px solid $color-accent-300;
+  }
+
+  &:active:not(:disabled) {
+    color: $color-accent-700;
+  }
+
+  &:hover:not(:disabled) {
+    color: $color-accent-100;
+  }
+}
+
+.withIcon {
+  @include button($color: $color-light-100);
+
+  padding: 6px 12px;
+
+  &:disabled {
+    color: $color-dark-100;
+  }
+
+  &:focus-visible {
+    outline: 1px solid $color-accent-700;
+  }
+
+  &:active:not(:disabled) {
+    color: $color-accent-500;
+  }
+
+  &:hover:not(:disabled) {
+    color: $color-accent-100;
+  }
+}
+
+.link {
+  @include button($color: $color-accent-500);
+  padding: 0;
+  font-size: $font-size-xs;
+  font-weight: $font-weight-regular;
+  line-height: $line-height-s;
+  text-decoration: underline;
+
+  &:disabled {
+    color: $color-accent-900;
+  }
+
+  &:active:not(:disabled) {
+    color: $color-accent-700;
+  }
+
+  &:hover:not(:disabled) {
+    color: $color-accent-100;
+  }
+}
+
+.compact {
+  padding: 6px 12px;
+}

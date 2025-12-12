@@ -1,118 +1,102 @@
+@import '@/shared/styles/colors';
+@import '@/shared/styles/typography';
+
 .container {
-  display: flex;
-  gap: 8px;
-  align-items: center;
+  width: 100%;
 
-  width: fit-content;
-  padding: 6px 2px 6px 6px;
-}
-
-.label {
-  cursor: pointer;
-  user-select: none;
-
-  display: flex;
-  align-items: center;
-
-  color: var(--color-light-100);
-
-  &.disabled {
-    cursor: initial;
-    color: var(--color-dark-100);
-  }
-}
-
-.root {
-  cursor: pointer;
-
-  position: relative;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  width: 18px;
-  height: 18px;
-  margin: 3px;
-  border: 2px solid var(--color-light-100);
-  border-radius: 2px;
-
-  background-color: var(--color-dark-900);
-
-  transition: all 0.2s ease;
-
-  &::after {
-    content: '';
-
-    position: absolute;
-    z-index: -1;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-
-    width: 36px;
-    height: 36px;
-    border-radius: 50%;
-
-    background-color: transparent;
-
-    transition: background-color 0.2s ease;
+  .error {
+    color: $color-danger-500;
+    border-color: $color-danger-500;
+    outline-color: $color-danger-500;
   }
 
-  &:focus-visible {
-    outline: 2px solid var(--color-dark-500);
+  .label {
+    cursor: pointer;
 
-    &::after {
-      background-color: var(--color-dark-500);
-      outline-offset: 2px;
-    }
-  }
+    position: relative;
 
-  &[data-state='checked'] {
-    border-color: var(--color-light-100);
-    background-color: var(--color-light-100);
-  }
+    display: inline-flex;
+    gap: 2px;
+    align-items: center;
 
-  &:disabled {
-    cursor: initial;
-
-    &:not([data-state='checked']) {
-      border: 2px solid var(--color-light-900);
+    &.disabled {
+      cursor: default;
+      color: $color-dark-100;
     }
 
-    &[data-state='checked'] {
-      border-color: var(--color-dark-100);
-      background-color: var(--color-dark-100);
+    .checkboxContainer {
+      all: unset;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      padding: 6px;
+
+      background-color: inherit;
+      border-radius: 50%;
+
+      &:focus {
+        background-color: $color-dark-500;
+      }
+
+      &:active:not(.disabled) {
+        background-color: $color-dark-100;
+      }
+
+      &:hover:not(.disabled),
+      &:hover.root:not([data-state='checked'], .disabled) {
+        background-color: $color-dark-100;
+      }
+
+      .checkbox {
+        cursor: pointer;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        box-sizing: border-box;
+        width: 24px;
+        height: 24px;
+
+        background-color: transparent;
+        border: 2px solid $color-light-500;
+        border-radius: 3px;
+
+        transition: 0.2s ease-in-out;
+
+        &[data-disabled] {
+          cursor: initial;
+          border: 2px solid $color-dark-100;
+        }
+
+        .checkboxIcon {
+          fill: $color-dark-700;
+
+          &[data-disabled] {
+            fill: $color-dark-700;
+          }
+        }
+
+        .indicator {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+
+          &[data-state='checked'] {
+            .checkIcon {
+              fill: $color-light-100;
+            }
+          }
+
+          &[data-state='checked'][data-disabled] {
+            .checkIcon {
+              fill: $color-dark-100;
+            }
+          }
+        }
+      }
     }
-  }
-
-  &:hover:not(:disabled) {
-    background-color: var(--color-dark-100);
-
-    &::after {
-      background-color: var(--color-dark-300);
-    }
-  }
-
-  span {
-    width: 18px;
-    height: 18px;
-  }
-
-  &:active:not(:disabled)::after {
-    background-color: var(--color-dark-100);
-  }
-}
-
-.indicator {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  svg {
-    width: 18px;
-    height: 18px;
-    border-radius: 2px;
-    background-color: var(--color-dark-900);
   }
 }
