@@ -4,13 +4,9 @@ import { z } from 'zod'
 export const createSignUpSchema = (t: LocalesType) => {
   return z
     .object({
-      username: z
-        .string()
-        .trim()
-        .nonempty(t.auth.authErrors.username.nonEmpty)
-        .min(6, t.auth.authErrors.username.min)
-        .max(30, t.auth.authErrors.username.min)
-        .regex(/^[0-9A-Za-z_-]+$/, t.auth.authErrors.username.regex),
+      agreeToTerms: z.boolean().refine(value => value, {
+        message: t.auth.authErrors.terms,
+      }),
       email: z
         .string()
         .trim()
@@ -26,14 +22,18 @@ export const createSignUpSchema = (t: LocalesType) => {
           /^[0-9a-zA-Z!"#$%&'()*+,\-./:;<=>?@[\\\]^_`{|}~]+$/,
           t.auth.authErrors.password.regex
         ),
-      passwordConfirm: z.string().trim().nonempty(t.auth.authErrors.passwordConfirm),
-      agreeToTerms: z.boolean().refine(value => value, {
-        message: t.auth.authErrors.terms,
-      }),
+      passwordConfirmation: z.string().trim().nonempty(t.auth.authErrors.passwordConfirmation),
+      username: z
+        .string()
+        .trim()
+        .nonempty(t.auth.authErrors.username.nonEmpty)
+        .min(6, t.auth.authErrors.username.min)
+        .max(30, t.auth.authErrors.username.min)
+        .regex(/^[0-9A-Za-z_-]+$/, t.auth.authErrors.username.regex),
     })
-    .refine(data => data.password === data.passwordConfirm, {
+    .refine(data => data.password === data.passwordConfirmation, {
       message: t.auth.authErrors.refine,
-      path: ['passwordConfirm'],
+      path: ['passwordConfirmation'],
     })
 }
 

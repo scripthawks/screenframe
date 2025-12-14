@@ -15,6 +15,7 @@ import {
   triggerZodFieldError,
   Typography,
   useTranslate,
+  withLocale,
 } from '@/shared'
 import { GithubSvgrepoCom31, GoogleSvgrepoCom1 } from '@/shared/assets/icons'
 import { DevTool } from '@hookform/devtools'
@@ -29,7 +30,7 @@ type Props = {
 }
 
 export const SingUpForm = ({ onSubmitHandlerAction }: Props) => {
-  const { t } = useTranslate()
+  const { locale, t } = useTranslate()
 
   const router = useRouter()
 
@@ -42,15 +43,15 @@ export const SingUpForm = ({ onSubmitHandlerAction }: Props) => {
     watch,
   } = useForm<SignUpSchema>({
     defaultValues: {
+      agreeToTerms: false,
       email: '',
       password: '',
-      passwordConfirm: '',
-      agreeToTerms: false,
+      passwordConfirmation: '',
       username: '',
     },
     mode: 'onTouched',
-    reValidateMode: 'onSubmit',
     resolver: zodResolver(createSignUpSchema(t)),
+    reValidateMode: 'onSubmit',
   })
 
   useEffect(() => {
@@ -67,10 +68,10 @@ export const SingUpForm = ({ onSubmitHandlerAction }: Props) => {
   const password = watch('password')
 
   useEffect(() => {
-    if (touchedFields.passwordConfirm) {
-      void trigger('passwordConfirm')
+    if (touchedFields.passwordConfirmation) {
+      void trigger('passwordConfirmation')
     }
-  }, [password, touchedFields.passwordConfirm, trigger])
+  }, [password, touchedFields.passwordConfirmation, trigger])
 
   return (
     <Card className={s.card}>
@@ -80,10 +81,10 @@ export const SingUpForm = ({ onSubmitHandlerAction }: Props) => {
         </Typography>
         <div className={s.authIcons}>
           <div onClick={() => {}}>
-            <GoogleSvgrepoCom1 width={36} height={36} />
+            <GoogleSvgrepoCom1 height={36} width={36} />
           </div>
           <div onClick={() => {}}>
-            <GithubSvgrepoCom31 width={36} height={36} />
+            <GithubSvgrepoCom31 height={36} width={36} />
           </div>
         </div>
         <DevTool control={control} />
@@ -116,7 +117,7 @@ export const SingUpForm = ({ onSubmitHandlerAction }: Props) => {
             className={`${s.field} ${s.lastField}`}
             control={control}
             label={t.auth.passwordConfirmation}
-            name={'passwordConfirm'}
+            name={'passwordConfirmation'}
             placeholder={'******************'}
             variant={'password'}
           />
@@ -126,11 +127,17 @@ export const SingUpForm = ({ onSubmitHandlerAction }: Props) => {
               label={
                 <Typography className={s.termsRow} variant={'regularText12'}>
                   {t.auth.agree}&nbsp;
-                  <Link className={s.termsLink} href={RoutesNames.TERMS_OF_SERVICE}>
+                  <Link
+                    className={s.termsLink}
+                    href={withLocale(locale, RoutesNames.TERMS_OF_SERVICE)}
+                  >
                     {t.auth.terms}
                   </Link>
                   &nbsp;{t.auth.and}&nbsp;
-                  <Link className={s.termsLink} href={RoutesNames.PRIVACY_POLICY}>
+                  <Link
+                    className={s.termsLink}
+                    href={withLocale(locale, RoutesNames.PRIVACY_POLICY)}
+                  >
                     {t.auth.policy}
                   </Link>
                 </Typography>
@@ -140,8 +147,8 @@ export const SingUpForm = ({ onSubmitHandlerAction }: Props) => {
           </div>
           <Button className={s.registerBtn} disabled={!formState.isValid} fullWidth type={'submit'}>
             <Typography
-              variant={'h3'}
               className={`${!formState.isValid && s.isSignUpButtonDisabled}`}
+              variant={'h3'}
             >
               {t.auth.signUp}
             </Typography>
@@ -150,7 +157,10 @@ export const SingUpForm = ({ onSubmitHandlerAction }: Props) => {
         <Typography className={s.subtitle} variant={'regularText16'}>
           {t.auth.haveAccount}
         </Typography>
-        <Button onClick={() => router.push(RoutesNames.SIGN_IN)} variant={'text'}>
+        <Button
+          onClick={() => router.push(withLocale(locale, RoutesNames.SIGN_IN))}
+          variant={'text'}
+        >
           <Typography className={s.signInButtonText} variant={'h3'}>
             {t.auth.signIn}
           </Typography>
