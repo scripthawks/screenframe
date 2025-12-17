@@ -1,9 +1,7 @@
 import { type ComponentPropsWithRef, useState } from 'react'
 
-import { SimpleYesNoDialog } from '@/entities/SimpleYesNoDialog'
-import { Tooltip } from '@/entities/Tooltip/Tooltip'
 import { useMeQuery } from '@/features/auth/api'
-import { useLogoutMutation } from '@/features/auth/api/auth.service'
+import { baseApi } from '@/shared/api'
 import {
   Bookmark,
   BookmarkOutline,
@@ -19,20 +17,17 @@ import {
   PlusSquareOutline,
   Search,
   SearchOutline,
-  TrendUp,
-  TrendUpOutline,
-} from '@shared/assets/icons'
-import { TOKEN } from '@/shared/constants'
+  TrendingUp,
+  TrendingUpOutline,
+} from '@/shared/assets/icons'
+import { BASE_FRONT_URL } from '@/shared/const'
 import { PrivatePages, PublicPages } from '@/shared/enums'
-import { baseApi } from '@/shared/store'
+import { Typography } from '@/shared/ui'
 import { clsx } from 'clsx'
 import Link from 'next/link'
 import { usePathname, useRouter } from 'next/navigation'
 
 import s from './Sidebar.module.scss'
-
-import { Typography } from '@shared/ui/Typography'
-
 type Props = {
   isMobile?: boolean
 } & ComponentPropsWithRef<'nav'>
@@ -114,12 +109,12 @@ function DesktopSidebar({ className, ...rest }: ComponentPropsWithRef<'nav'>) {
         <ul>
           <div className={classNames.firstContainer}>
             <li>
-              <Typography as={Link} href="#" variant="medium_14">
+              <Typography as={Link} href="#" variant="regularText14">
                 {active ? <Home /> : <HomeOutline />} Feed
               </Typography>
             </li>
             <li>
-              <Typography as="button" variant="medium_14" onClick={() => setShowTooltip(true)}>
+              <Typography as="button" variant="regularText14" onClick={() => setShowTooltip(true)}>
                 {active ? <PlusSquare /> : <PlusSquareOutline />} Create
               </Typography>
             </li>
@@ -128,7 +123,7 @@ function DesktopSidebar({ className, ...rest }: ComponentPropsWithRef<'nav'>) {
                 as={Link}
                 className={actualLink(`${PrivatePages.profile}/${meData?.id}`).className}
                 href={`${PrivatePages.profile}/${meData?.id}`}
-                variant="medium_14"
+                variant="regularText14"
               >
                 {actualLink(`${PrivatePages.profile}/${meData?.id}`).active ? (
                   <Person />
@@ -139,24 +134,24 @@ function DesktopSidebar({ className, ...rest }: ComponentPropsWithRef<'nav'>) {
               </Typography>
             </li>
             <li>
-              <Typography as={Link} href="#" variant="medium_14">
+              <Typography as={Link} href="#" variant="regularText14">
                 {active ? <MessageCircle /> : <MessageCircleOutline />} Messenger
               </Typography>
             </li>
             <li>
-              <Typography as={Link} href="#" variant="medium_14">
+              <Typography as={Link} href="#" variant="regularText14">
                 {active ? <Search /> : <SearchOutline />} Search
               </Typography>
             </li>
           </div>
           <div className={classNames.secondContainer}>
             <li>
-              <Typography as={Link} href="#" variant="medium_14">
-                {active ? <TrendUp /> : <TrendUpOutline />} Statistics
+              <Typography as={Link} href="#" variant="regularText14">
+                {active ? <TrendingUp /> : <TrendingUpOutline />} Statistics
               </Typography>
             </li>
             <li>
-              <Typography as={Link} href="#" variant="medium_14">
+              <Typography as={Link} href="#" variant="regularText14">
                 {active ? <Bookmark /> : <BookmarkOutline />} Favorites
               </Typography>
             </li>
@@ -164,7 +159,7 @@ function DesktopSidebar({ className, ...rest }: ComponentPropsWithRef<'nav'>) {
           <li>
             <Typography
               className={classNames.logoutText(isLoadingLogout)}
-              variant="medium_14"
+              variant="regularText14"
               onClick={() => setIsLogoutOpen(true)}
             >
               {active ? <LogOut /> : <LogOutOutline />} Log Out

@@ -1,5 +1,7 @@
 import { ReactNode } from 'react'
 
+import { StoreProvider } from '@/app/StoreProvider'
+
 import './globals.css'
 
 type Props = {
@@ -12,7 +14,9 @@ export default function RootLayout({ children, params }: Props) {
 
   return (
     <html lang={locale}>
-      <body>{children}</body>
+      <body>
+        <StoreProvider>{children}</StoreProvider>
+      </body>
     </html>
   )
 }
