@@ -1,6 +1,6 @@
 import { Toast } from '@/shared'
 
-export const useToast = (isSuccess: boolean, error?: any, isSettings?: boolean) => {
+export const showToast = (isSuccess: boolean, error?: any, isSettings?: boolean) => {
   if (isSuccess) {
     Toast({ text: isSettings ? 'Your settings are saved' : 'Success', type: 'success' })
   }

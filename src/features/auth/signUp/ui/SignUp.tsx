@@ -1,11 +1,12 @@
+'use client'
+
 import { Loader, Modal, Typography } from '@/shared'
 
 import { useSignUp } from '../lib/useSignUp'
 import { SingUpForm } from './signUpForm/SignUpForm'
 
 export const SignUp = () => {
-  const { email, emailSentModal, isLoading, onModalClose, onSaveModalAction, submit, t } =
-    useSignUp()
+  const { email, emailSentModal, isLoading, onModalClose, onSaveModalAction, t } = useSignUp()
 
   if (isLoading) {
     return <Loader />
@@ -13,10 +14,10 @@ export const SignUp = () => {
 
   return (
     <div>
-      <SingUpForm onSubmitHandlerAction={submit} />
+      <SingUpForm />
       <Modal
         actionButtonName={t.auth.ok}
-        modalSize={'large'}
+        modalSize={'small'}
         onAction={onSaveModalAction}
         onClose={onModalClose}
         open={emailSentModal}
