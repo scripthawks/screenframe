@@ -9,5 +9,5 @@ export const useTranslate = () => {
 
   const t = locale === 'ru' ? ru : en
 
-  return { t, locale }
+  return { locale, t }
 }

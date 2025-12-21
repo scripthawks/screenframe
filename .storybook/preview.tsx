@@ -1,4 +1,7 @@
 import type { Preview } from '@storybook/nextjs-vite'
+import type { Decorator } from '@storybook/react'
+import { ToastContainer } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 
 const preview: Preview = {
   parameters: {
@@ -19,3 +22,19 @@ const preview: Preview = {
 }
 
 export default preview
+
+export const decorators: Decorator[] = [
+  Story => (
+    <>
+      <Story />
+      <ToastContainer
+        position={'bottom-left'}
+        autoClose={4000}
+        closeOnClick
+        draggable
+        pauseOnFocusLoss={false}
+        pauseOnHover={false}
+      />
+    </>
+  ),
+]
