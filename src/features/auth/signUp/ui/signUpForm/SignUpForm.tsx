@@ -9,13 +9,11 @@ import {
   ControlledCheckbox,
   ControlledTextField,
   createSignUpSchema,
-  FormFields,
   RoutesNames,
   SignUpSchema,
   triggerZodFieldError,
   Typography,
   useTranslate,
-  withLocale,
 } from '@/shared'
 import { GithubSvgrepoCom31, GoogleSvgrepoCom1 } from '@/shared/assets/icons'
 import { DevTool } from '@hookform/devtools'
@@ -25,12 +23,10 @@ import { useRouter } from 'next/navigation'
 
 import s from './SingUpForm.module.scss'
 
-type Props = {
-  onSubmitHandlerAction: (data: SignUpSchema) => void
-}
+import { useSignUp } from '../../lib/useSignUp'
 
-export const SingUpForm = ({ onSubmitHandlerAction }: Props) => {
-  const { locale, t } = useTranslate()
+export const SingUpForm = () => {
+  const { t } = useTranslate()
 
   const router = useRouter()
 
@@ -39,6 +35,7 @@ export const SingUpForm = ({ onSubmitHandlerAction }: Props) => {
     formState,
     formState: { errors, touchedFields },
     handleSubmit,
+    setError,
     trigger,
     watch,
   } = useForm<SignUpSchema>({
@@ -54,16 +51,20 @@ export const SingUpForm = ({ onSubmitHandlerAction }: Props) => {
     reValidateMode: 'onSubmit',
   })
 
-  useEffect(() => {
-    const touchedFieldNames: FormFields[] = Object.keys(touchedFields) as FormFields[]
-
-    triggerZodFieldError(touchedFieldNames, trigger)
-    // eslint-disable-next-line
-  }, [t])
+  const { isLoading, submit } = useSignUp((field, message) =>
+    setError(field, { message, type: 'server' })
+  )
 
   const onSubmit = handleSubmit((data: SignUpSchema) => {
-    onSubmitHandlerAction(data)
+    void submit(data)
   })
+
+  useEffect(() => {
+    const touchedFieldNames = Object.keys(touchedFields) as Array<keyof SignUpSchema>
+
+    triggerZodFieldError<SignUpSchema>(touchedFieldNames, trigger)
+    // eslint-disable-next-line
+  }, [t])
 
   const password = watch('password')
 
@@ -127,17 +128,11 @@ export const SingUpForm = ({ onSubmitHandlerAction }: Props) => {
               label={
                 <Typography className={s.termsRow} variant={'regularText12'}>
                   {t.auth.agree}&nbsp;
-                  <Link
-                    className={s.termsLink}
-                    href={withLocale(locale, RoutesNames.TERMS_OF_SERVICE)}
-                  >
+                  <Link className={s.termsLink} href={RoutesNames.TERMS_OF_SERVICE}>
                     {t.auth.terms}
                   </Link>
                   &nbsp;{t.auth.and}&nbsp;
-                  <Link
-                    className={s.termsLink}
-                    href={withLocale(locale, RoutesNames.PRIVACY_POLICY)}
-                  >
+                  <Link className={s.termsLink} href={RoutesNames.PRIVACY_POLICY}>
                     {t.auth.policy}
                   </Link>
                 </Typography>
@@ -145,7 +140,12 @@ export const SingUpForm = ({ onSubmitHandlerAction }: Props) => {
               name={'agreeToTerms'}
             />
           </div>
-          <Button className={s.registerBtn} disabled={!formState.isValid} fullWidth type={'submit'}>
+          <Button
+            className={s.registerBtn}
+            disabled={!formState.isValid || isLoading}
+            fullWidth
+            type={'submit'}
+          >
             <Typography
               className={`${!formState.isValid && s.isSignUpButtonDisabled}`}
               variant={'h3'}
@@ -157,10 +157,7 @@ export const SingUpForm = ({ onSubmitHandlerAction }: Props) => {
         <Typography className={s.subtitle} variant={'regularText16'}>
           {t.auth.haveAccount}
         </Typography>
-        <Button
-          onClick={() => router.push(withLocale(locale, RoutesNames.SIGN_IN))}
-          variant={'text'}
-        >
+        <Button onClick={() => router.push(RoutesNames.SIGN_IN)} variant={'text'}>
           <Typography className={s.signInButtonText} variant={'h3'}>
             {t.auth.signIn}
           </Typography>

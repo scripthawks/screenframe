@@ -4,7 +4,7 @@ export const en = {
     and: 'and',
     authErrors: {
       email: {
-        incorrect: 'Invalid email address',
+        incorrect: 'The email must match the format example@example.com',
         nonEmpty: 'Enter email'
       },
       password: {
@@ -14,6 +14,10 @@ export const en = {
         regex: `Password must contain A-z, 0-9, !"#$%&'()*+,-./:;<=>?@[\\]^_{|}~`,
       },
       passwordConfirmation: 'Confirm your password',
+      recaptcha: {
+        expired: 'Verification expired. Check the checkbox again',
+        nonEmpty: 'Please verify that you are not a robot'
+      },
       refine: 'Passwords must match',
       terms: 'Please, review and agree to the Terms of service and Privacy policy to proceed',
       username: {
@@ -36,7 +40,7 @@ export const en = {
     },
     emailSent: 'Email sent',
     enterEmail: 'Enter your email address and we will send you further instructions',
-    forgotPassword: 'Forgot Password?',
+    forgotPassword: 'Forgot Password',
     haveAccount: 'Do you have an account?',
     linkHasBeenSent: 'The link has been sent by email. If you don’t receive an email send link again',
     logIn: 'Log in',
