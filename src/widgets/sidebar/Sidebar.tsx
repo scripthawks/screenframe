@@ -1,7 +1,8 @@
 import { type ComponentPropsWithRef, useState } from 'react'
 
-import { useMeQuery } from '@/features/auth/api'
-import { baseApi } from '@/shared/api'
+import { signInSlice } from '@/features/auth/signIn/model/slice/signInSlice'
+import { baseApi } from '@/shared/api/baseApi'
+import { baseQueryWithReAuth } from '@/shared/api/baseQueryWithReAuth'
 import {
   Bookmark,
   BookmarkOutline,
@@ -20,14 +21,14 @@ import {
   TrendingUp,
   TrendingUpOutline,
 } from '@/shared/assets/icons'
-import { BASE_FRONT_URL } from '@/shared/const'
-import { PrivatePages, PublicPages } from '@/shared/enums'
+import { RoutesNames } from '@/shared/const/routesNames'
 import { Typography } from '@/shared/ui'
 import { clsx } from 'clsx'
 import Link from 'next/link'
 import { usePathname, useRouter } from 'next/navigation'
 
 import s from './Sidebar.module.scss'
+
 type Props = {
   isMobile?: boolean
 } & ComponentPropsWithRef<'nav'>
@@ -40,10 +41,11 @@ export const Sidebar = (props: Props) => {
 
 function MobileSidebar({ className, ...rest }: ComponentPropsWithRef<'nav'>) {
   const classNames = {
-    nav: clsx(s.mobileNav, className),
     mobileContainer: s.mobileContainer,
+    nav: clsx(s.mobileNav, className),
   }
   const active = true
+
   return (
     <nav className={classNames.nav} {...rest}>
       <ul className={classNames.mobileContainer}>
@@ -69,17 +71,17 @@ function MobileSidebar({ className, ...rest }: ComponentPropsWithRef<'nav'>) {
 
 function DesktopSidebar({ className, ...rest }: ComponentPropsWithRef<'nav'>) {
   const classNames = {
-    nav: clsx(s.desktopNav, className),
-    firstContainer: clsx(s.desktopContainer, s.desktopFirstContainer),
-    secondContainer: clsx(s.desktopSecondContainer, s.desktopContainer),
     activeLink: s.activeLink,
-    logoutText: (isDisabled: boolean) => clsx(s.logoutText, isDisabled && s.disabled),
+    firstContainer: clsx(s.desktopContainer, s.desktopFirstContainer),
+    logoutText: (isDisabled: boolean) => clsx(s.logoutText, isDisabled && s.disabled),A
+    nav: clsx(s.desktopNav, className),
+    secondContainer: clsx(s.desktopSecondContainer, s.desktopContainer),
   }
 
   const router = useRouter()
   const pathname = usePathname()
 
-  const { data: meData } = useMeQuery()
+  const { data: meData } = baseQueryWithReAuth()
   const [logoutMutation, { isLoading: isLoadingLogout }] = useLogoutMutation()
   const [isLogoutOpen, setIsLogoutOpen] = useState(false)
   const [showTooltip, setShowTooltip] = useState(false)
@@ -87,10 +89,10 @@ function DesktopSidebar({ className, ...rest }: ComponentPropsWithRef<'nav'>) {
   const handleConfirmLogout = async () => {
     try {
       await logoutMutation().unwrap()
-      localStorage.removeItem(TOKEN)
+      localStorage.removeItem(signInSlice)
       baseApi.util.resetApiState()
       setIsLogoutOpen(false)
-      router.push(PublicPages.signIn)
+      router.push(RoutesNames.SIGN_IN)
     } catch (error) {
       console.error('Logout failed', error)
     }
@@ -109,23 +111,27 @@ function DesktopSidebar({ className, ...rest }: ComponentPropsWithRef<'nav'>) {
         <ul>
           <div className={classNames.firstContainer}>
             <li>
-              <Typography as={Link} href="#" variant="regularText14">
+              <Typography as={Link} href={'#'} variant={'regularText14'}>
                 {active ? <Home /> : <HomeOutline />} Feed
               </Typography>
             </li>
             <li>
-              <Typography as="button" variant="regularText14" onClick={() => setShowTooltip(true)}>
+              <Typography
+                as={'button'}
+                onClick={() => setShowTooltip(true)}
+                variant={'regularText14'}
+              >
                 {active ? <PlusSquare /> : <PlusSquareOutline />} Create
               </Typography>
             </li>
             <li>
               <Typography
                 as={Link}
-                className={actualLink(`${PrivatePages.profile}/${meData?.id}`).className}
-                href={`${PrivatePages.profile}/${meData?.id}`}
-                variant="regularText14"
+                className={actualLink(`${RoutesNames.PROFILE}/${meData?.id}`).className}
+                href={`${RoutesNames.PROFILE}/${meData?.id}`}
+                variant={'regularText14'}
               >
-                {actualLink(`${PrivatePages.profile}/${meData?.id}`).active ? (
+                {actualLink(`${RoutesNames.PROFILE}/${meData?.id}`).active ? (
                   <Person />
                 ) : (
                   <PersonOutline />
@@ -134,24 +140,23 @@ function DesktopSidebar({ className, ...rest }: ComponentPropsWithRef<'nav'>) {
               </Typography>
             </li>
             <li>
-              <Typography as={Link} href="#" variant="regularText14">
+              <Typography as={Link} href={'#'} variant={'regularText14'}>
                 {active ? <MessageCircle /> : <MessageCircleOutline />} Messenger
               </Typography>
             </li>
             <li>
-              <Typography as={Link} href="#" variant="regularText14">
+              <Typography as={Link} href={'#'} variant={'regularText14'}>
                 {active ? <Search /> : <SearchOutline />} Search
               </Typography>
             </li>
           </div>
           <div className={classNames.secondContainer}>
             <li>
-              <Typography as={Link} href="#" variant="regularText14">
+              <Typography as={Link} href={'#'} variant={'regularText14'}>
                 {active ? <TrendingUp /> : <TrendingUpOutline />} Statistics
               </Typography>
             </li>
             <li>
-              <Typography as={Link} href="#" variant="regularText14">
                 {active ? <Bookmark /> : <BookmarkOutline />} Favorites
               </Typography>
             </li>
@@ -159,8 +164,8 @@ function DesktopSidebar({ className, ...rest }: ComponentPropsWithRef<'nav'>) {
           <li>
             <Typography
               className={classNames.logoutText(isLoadingLogout)}
-              variant="regularText14"
               onClick={() => setIsLogoutOpen(true)}
+              variant={'regularText14'}
             >
               {active ? <LogOut /> : <LogOutOutline />} Log Out
             </Typography>
