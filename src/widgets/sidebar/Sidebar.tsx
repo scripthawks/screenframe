@@ -1,8 +1,7 @@
 import { type ComponentPropsWithRef, useState } from 'react'
 
-import { signInSlice } from '@/features/auth/signIn/model/slice/signInSlice'
-import { baseApi } from '@/shared/api/baseApi'
-import { baseQueryWithReAuth } from '@/shared/api/baseQueryWithReAuth'
+import { clearAccessToken, clearId } from '@/features/auth/signIn'
+import { useGetMeQuery, useLogoutMutation } from '@/shared/api/authApi'
 import {
   Bookmark,
   BookmarkOutline,
@@ -23,6 +22,7 @@ import {
 } from '@/shared/assets/icons'
 import { RoutesNames } from '@/shared/const/routesNames'
 import { Typography } from '@/shared/ui'
+import { useAppDispatch } from '@/store'
 import { clsx } from 'clsx'
 import Link from 'next/link'
 import { usePathname, useRouter } from 'next/navigation'
@@ -50,19 +50,19 @@ function MobileSidebar({ className, ...rest }: ComponentPropsWithRef<'nav'>) {
     <nav className={classNames.nav} {...rest}>
       <ul className={classNames.mobileContainer}>
         <li>
-          <Link href="#">{active ? <Home /> : <HomeOutline />}</Link>
+          <Link href={'#'}>{active ? <Home /> : <HomeOutline />}</Link>
         </li>
         <li>
-          <Link href="#">{active ? <PlusSquare /> : <PlusSquareOutline />}</Link>
+          <Link href={'#'}>{active ? <PlusSquare /> : <PlusSquareOutline />}</Link>
         </li>
         <li>
-          <Link href="#">{active ? <MessageCircle /> : <MessageCircleOutline />}</Link>
+          <Link href={'#'}>{active ? <MessageCircle /> : <MessageCircleOutline />}</Link>
         </li>
         <li>
-          <Link href="#">{active ? <Search /> : <SearchOutline />}</Link>
+          <Link href={'#'}>{active ? <Search /> : <SearchOutline />}</Link>
         </li>
         <li>
-          <Link href="#">{active ? <Person /> : <PersonOutline />}</Link>
+          <Link href={'#'}>{active ? <Person /> : <PersonOutline />}</Link>
         </li>
       </ul>
     </nav>
@@ -73,35 +73,42 @@ function DesktopSidebar({ className, ...rest }: ComponentPropsWithRef<'nav'>) {
   const classNames = {
     activeLink: s.activeLink,
     firstContainer: clsx(s.desktopContainer, s.desktopFirstContainer),
-    logoutText: (isDisabled: boolean) => clsx(s.logoutText, isDisabled && s.disabled),A
+    logoutText: (isDisabled: boolean) => clsx(s.logoutText, isDisabled && s.disabled),
     nav: clsx(s.desktopNav, className),
     secondContainer: clsx(s.desktopSecondContainer, s.desktopContainer),
   }
 
   const router = useRouter()
   const pathname = usePathname()
+  const dispatch = useAppDispatch()
 
-  const { data: meData } = baseQueryWithReAuth()
-  const [logoutMutation, { isLoading: isLoadingLogout }] = useLogoutMutation()
+  const { data: meData, isLoading } = useGetMeQuery()
+  const [logout, { isLoading: isLoadingLogout }] = useLogoutMutation()
   const [isLogoutOpen, setIsLogoutOpen] = useState(false)
-  const [showTooltip, setShowTooltip] = useState(false)
-
-  const handleConfirmLogout = async () => {
-    try {
-      await logoutMutation().unwrap()
-      localStorage.removeItem(signInSlice)
-      baseApi.util.resetApiState()
-      setIsLogoutOpen(false)
-      router.push(RoutesNames.SIGN_IN)
-    } catch (error) {
-      console.error('Logout failed', error)
-    }
-  }
 
   const actualLink = (actualPath: string) => ({
     active: pathname === actualPath,
     className: pathname === actualPath ? classNames.activeLink : '',
   })
+
+  const handleLogout = async () => {
+    try {
+      await logout().unwrap()
+      dispatch(clearAccessToken())
+      dispatch(clearId())
+      router.push(RoutesNames.SIGN_IN)
+    } catch (error) {
+      console.error('Logout failed:', error)
+
+      dispatch(clearAccessToken())
+      dispatch(clearId())
+      router.push(RoutesNames.SIGN_IN)
+    }
+  }
+
+  if (!meData && !isLoading) {
+    return null
+  }
 
   const active = false
 
@@ -116,11 +123,7 @@ function DesktopSidebar({ className, ...rest }: ComponentPropsWithRef<'nav'>) {
               </Typography>
             </li>
             <li>
-              <Typography
-                as={'button'}
-                onClick={() => setShowTooltip(true)}
-                variant={'regularText14'}
-              >
+              <Typography as={'button'} variant={'regularText14'}>
                 {active ? <PlusSquare /> : <PlusSquareOutline />} Create
               </Typography>
             </li>
@@ -135,7 +138,7 @@ function DesktopSidebar({ className, ...rest }: ComponentPropsWithRef<'nav'>) {
                   <Person />
                 ) : (
                   <PersonOutline />
-                )}{' '}
+                )}
                 My Profile
               </Typography>
             </li>
@@ -157,14 +160,13 @@ function DesktopSidebar({ className, ...rest }: ComponentPropsWithRef<'nav'>) {
               </Typography>
             </li>
             <li>
-                {active ? <Bookmark /> : <BookmarkOutline />} Favorites
-              </Typography>
+              <Typography>{active ? <Bookmark /> : <BookmarkOutline />} Favorites</Typography>
             </li>
           </div>
           <li>
             <Typography
               className={classNames.logoutText(isLoadingLogout)}
-              onClick={() => setIsLogoutOpen(true)}
+              onClick={handleLogout}
               variant={'regularText14'}
             >
               {active ? <LogOut /> : <LogOutOutline />} Log Out

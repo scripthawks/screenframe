@@ -1,0 +1,26 @@
+@use '../../../../shared/styles/index' as *;
+
+.container {
+  @include flex-block;
+
+  .text_container {
+    @include flex-block;
+
+    max-width: 294px;
+    margin-bottom: 72px;
+
+    .title {
+      margin-bottom: 19px;
+    }
+
+    .text {
+      margin-bottom: 54px;
+      text-align: center;
+    }
+
+    .button {
+      display: flex;
+      justify-content: center;
+    }
+  }
+}

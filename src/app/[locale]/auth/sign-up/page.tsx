@@ -1,18 +1,9 @@
 'use client'
 
-import { SingUpForm } from '@/features'
-import { SignUpSchema } from '@/shared'
+import { SignUpDynamic } from '@/features'
 
-const SignUp = () => {
-  const submit = (data: SignUpSchema) => {
-    console.log(data)
-  }
-
-  return (
-    <div>
-      <SingUpForm onSubmitHandlerAction={submit} />
-    </div>
-  )
+const SignUpPage = () => {
+  return <SignUpDynamic />
 }
 
-export default SignUp
+export default SignUpPage

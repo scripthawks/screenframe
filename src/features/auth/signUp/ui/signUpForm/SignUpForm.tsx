@@ -9,7 +9,6 @@ import {
   ControlledCheckbox,
   ControlledTextField,
   createSignUpSchema,
-  FormFields,
   RoutesNames,
   SignUpSchema,
   triggerZodFieldError,
@@ -24,11 +23,9 @@ import { useRouter } from 'next/navigation'
 
 import s from './SingUpForm.module.scss'
 
-type Props = {
-  onSubmitHandlerAction: (data: SignUpSchema) => void
-}
+import { useSignUp } from '../../lib/useSignUp'
 
-export const SingUpForm = ({ onSubmitHandlerAction }: Props) => {
+export const SingUpForm = () => {
   const { t } = useTranslate()
 
   const router = useRouter()
@@ -38,39 +35,44 @@ export const SingUpForm = ({ onSubmitHandlerAction }: Props) => {
     formState,
     formState: { errors, touchedFields },
     handleSubmit,
+    setError,
     trigger,
     watch,
   } = useForm<SignUpSchema>({
     defaultValues: {
+      agreeToTerms: false,
       email: '',
       password: '',
-      passwordConfirm: '',
-      agreeToTerms: false,
+      passwordConfirmation: '',
       username: '',
     },
     mode: 'onTouched',
-    reValidateMode: 'onSubmit',
     resolver: zodResolver(createSignUpSchema(t)),
+    reValidateMode: 'onSubmit',
+  })
+
+  const { isLoading, submit } = useSignUp((field, message) =>
+    setError(field, { message, type: 'server' })
+  )
+
+  const onSubmit = handleSubmit((data: SignUpSchema) => {
+    void submit(data)
   })
 
   useEffect(() => {
-    const touchedFieldNames: FormFields[] = Object.keys(touchedFields) as FormFields[]
+    const touchedFieldNames = Object.keys(touchedFields) as Array<keyof SignUpSchema>
 
-    triggerZodFieldError(touchedFieldNames, trigger)
+    triggerZodFieldError<SignUpSchema>(touchedFieldNames, trigger)
     // eslint-disable-next-line
   }, [t])
-
-  const onSubmit = handleSubmit((data: SignUpSchema) => {
-    onSubmitHandlerAction(data)
-  })
 
   const password = watch('password')
 
   useEffect(() => {
-    if (touchedFields.passwordConfirm) {
-      void trigger('passwordConfirm')
+    if (touchedFields.passwordConfirmation) {
+      void trigger('passwordConfirmation')
     }
-  }, [password, touchedFields.passwordConfirm, trigger])
+  }, [password, touchedFields.passwordConfirmation, trigger])
 
   return (
     <Card className={s.card}>
@@ -80,10 +82,10 @@ export const SingUpForm = ({ onSubmitHandlerAction }: Props) => {
         </Typography>
         <div className={s.authIcons}>
           <div onClick={() => {}}>
-            <GoogleSvgrepoCom1 width={36} height={36} />
+            <GoogleSvgrepoCom1 height={36} width={36} />
           </div>
           <div onClick={() => {}}>
-            <GithubSvgrepoCom31 width={36} height={36} />
+            <GithubSvgrepoCom31 height={36} width={36} />
           </div>
         </div>
         <DevTool control={control} />
@@ -116,7 +118,7 @@ export const SingUpForm = ({ onSubmitHandlerAction }: Props) => {
             className={`${s.field} ${s.lastField}`}
             control={control}
             label={t.auth.passwordConfirmation}
-            name={'passwordConfirm'}
+            name={'passwordConfirmation'}
             placeholder={'******************'}
             variant={'password'}
           />
@@ -138,10 +140,15 @@ export const SingUpForm = ({ onSubmitHandlerAction }: Props) => {
               name={'agreeToTerms'}
             />
           </div>
-          <Button className={s.registerBtn} disabled={!formState.isValid} fullWidth type={'submit'}>
+          <Button
+            className={s.registerBtn}
+            disabled={!formState.isValid || isLoading}
+            fullWidth
+            type={'submit'}
+          >
             <Typography
-              variant={'h3'}
               className={`${!formState.isValid && s.isSignUpButtonDisabled}`}
+              variant={'h3'}
             >
               {t.auth.signUp}
             </Typography>

@@ -1,16 +1,12 @@
-import { SignUpSchema } from '@/shared'
+import { FieldValues, Path, UseFormTrigger } from 'react-hook-form'
 
-type FormType = SignUpSchema
-
-export type FormFields = keyof FormType
-
-export const triggerZodFieldError = (
-  touchedFieldNames: FormFields[],
-  trigger: (name?: FormFields | FormFields[]) => Promise<boolean>
+export const triggerZodFieldError = <TFieldValues extends FieldValues>(
+  touchedFieldNames: Path<TFieldValues>[],
+  trigger: UseFormTrigger<TFieldValues>
 ) => {
   if (touchedFieldNames.length > 0) {
     touchedFieldNames.forEach(fieldName => {
-      trigger(fieldName as FormFields)
+      void trigger(fieldName)
     })
   }
 }

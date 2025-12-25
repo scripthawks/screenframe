@@ -1,5 +1,4 @@
-@import '@/shared/styles/mixins';
-@import '@/shared/styles/colors';
+@use '../../../../../shared/styles/index' as *;
 
 .card {
   width: 100%;
