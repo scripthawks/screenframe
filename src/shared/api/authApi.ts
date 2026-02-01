@@ -4,6 +4,7 @@ export type UserType = {
   id: number
   email: string
   userName: string
+  emailVerified?: boolean
 }
 
 export const authApi = baseApi.injectEndpoints({
@@ -22,7 +23,20 @@ export const authApi = baseApi.injectEndpoints({
         url: 'auth/logout',
       }),
     }),
+    verifyEmail: builder.mutation<{ message: string }, string>({
+      invalidatesTags: ['Me'],
+      query: () => ({
+        method: 'GET',
+        url: 'auth/verify-email',
+      }),
+      transformErrorResponse: response => {
+        return {
+          status: response.status,
+        }
+      },
+    }),
   }),
 })
 
-export const { useGetMeQuery, useLazyGetMeQuery, useLogoutMutation } = authApi
+export const { useGetMeQuery, useLazyGetMeQuery, useLogoutMutation, useVerifyEmailMutation } =
+  authApi
