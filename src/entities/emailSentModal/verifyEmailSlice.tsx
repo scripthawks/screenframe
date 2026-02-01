@@ -1,9 +1,10 @@
 import { useEffect } from 'react';
-import { useSearchParams, useNavigate } from 'react-router-dom';
+import { useSearchParams, useNavigate } from 'react-router';
 import { useVerifyEmailMutation } from '@/shared/api/authApi';
-import { Button } from '@/shared/ui'
+import { Button, Loader } from '@/shared/ui'
 
 import { routes } from '@/shared';
+
 
 export const VerifyEmailPage = () => {
   const [searchParams] = useSearchParams();
