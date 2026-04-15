@@ -1,0 +1,20 @@
+@use '../../../shared/styles/index' as *;
+
+.mainContainer {
+  @include flex-block($flex-direction: row, $align-items: flex-start);
+
+  width: 100%;
+
+  .sidebar {
+    max-width: 15rem;
+    width: 100%;
+
+    @include flex-block();
+  }
+
+  .main {
+    width: 100%;
+
+    text-align: center;
+  }
+}

@@ -2,6 +2,7 @@ import { ReactNode } from 'react'
 import { ToastContainer } from 'react-toastify'
 
 import { StoreProvider } from '@/app/StoreProvider'
+import Script from 'next/script'
 
 import './globals.css'
 import 'react-toastify/dist/ReactToastify.css'
@@ -25,6 +26,12 @@ export default function RootLayout({ children, params }: Props) {
           pauseOnFocusLoss={false}
           pauseOnHover={false}
           position={'bottom-left'}
+        />
+        <Script
+          async
+          defer
+          src={'https://www.google.com/recaptcha/api.js'}
+          strategy={'afterInteractive'}
         />
       </body>
     </html>

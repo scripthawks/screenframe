@@ -16,7 +16,7 @@ export const SignUp = () => {
     <div>
       <SingUpForm />
       <Modal
-        actionButtonName={t.auth.ok}
+        actionButtonName={t.modal.ok}
         modalSize={'small'}
         onAction={onSaveModalAction}
         onClose={onModalClose}

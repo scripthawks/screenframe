@@ -18,6 +18,6 @@ export const signUpApi = baseApi.injectEndpoints({
       }),
     }),
   }),
-  overrideExisting: false,
+  overrideExisting: true,
 })
 export const { useSignUpMutation } = signUpApi

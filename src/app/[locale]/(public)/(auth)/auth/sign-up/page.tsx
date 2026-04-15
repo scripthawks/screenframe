@@ -1,5 +1,3 @@
-'use client'
-
 import { SignUpDynamic } from '@/features'
 
 const SignUpPage = () => {
