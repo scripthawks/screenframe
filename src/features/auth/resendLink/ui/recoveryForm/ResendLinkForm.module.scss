@@ -1,4 +1,4 @@
-@use '../../../../shared/styles/index' as *;
+@use '../../../../../shared/styles/index' as *;
 
 .container {
   @include flex-block;
@@ -14,7 +14,7 @@
     }
 
     .text {
-      margin-bottom: 54px;
+      margin-bottom: 30px;
       text-align: center;
     }
 

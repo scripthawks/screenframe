@@ -1,0 +1,16 @@
+@use '../../../../shared/styles/index' as *;
+
+.modal {
+  .buttonWrapper {
+    width: 100%;
+
+    .button {
+      @include flex-block;
+
+      position: fixed;
+      right: 24px;
+      bottom: 36px;
+      width: 96px;
+    }
+  }
+}

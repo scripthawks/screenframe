@@ -1,5 +1,4 @@
-import { clearId, clearAccessToken, setAccessToken } from '@/features/auth/signIn'
-import { BaseResponse } from '@/shared/api'
+import { clearAccessToken, clearId, setAccessToken } from '@/features/auth/signIn'
 import { BASE_URL, resultCode, RoutesNames } from '@/shared/const'
 import { AppRootState } from '@/store'
 import { BaseQueryFn, FetchArgs, FetchBaseQueryError } from '@reduxjs/toolkit/query'
@@ -34,9 +33,10 @@ export const baseQueryWithReAuth: BaseQueryFn<
 
   let result = await baseQuery(args, api, extraOptions)
 
-  const resultData = result?.data as BaseResponse
-  const isLoginEndpoint = result?.meta?.request.url.endsWith(RoutesNames.SIGN_IN)
-  const error401 = resultData?.resultCode === resultCode.UNAUTHORIZED
+  const resultError = result?.error as FetchBaseQueryError
+
+  const isLoginEndpoint = result?.meta?.request.url?.endsWith(RoutesNames.SIGN_IN)
+  const error401 = resultError?.status === resultCode.UNAUTHORIZED
 
   if (!isLoginEndpoint && error401) {
     if (!mutex.isLocked()) {
@@ -50,7 +50,7 @@ export const baseQueryWithReAuth: BaseQueryFn<
         )
         const refresh = refreshResult.data as { accessToken: string }
 
-        if (refresh) {
+        if (refresh && refresh.accessToken) {
           api.dispatch(setAccessToken({ accessToken: refresh.accessToken }))
           result = await baseQuery(args, api, extraOptions)
         } else {
