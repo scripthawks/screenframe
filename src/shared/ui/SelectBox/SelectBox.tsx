@@ -97,4 +97,5 @@ const SelectBox = forwardRef<HTMLButtonElement, SelectProps>(
 )
 
 SelectBox.displayName = 'SelectBox'
-export default SelectBox
+
+export { SelectBox }
