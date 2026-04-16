@@ -21,7 +21,14 @@ export function proxy(request: NextRequest) {
     return NextResponse.next()
   }
 
-  const newPathname = '/' + [DEFAULT_LOCALE, ...segments].join('/')
+  const cookieLocale = request.cookies.get('locale')?.value
+  const header = request.headers.get('accept-language') || ''
+  const headerLocale = header.split(',')[0]?.split('-')[0]
+
+  const localeCandidates = [cookieLocale, headerLocale, DEFAULT_LOCALE]
+  const locale = localeCandidates.find(l => SUPPORTED_LOCALES.includes(l as any)) ?? DEFAULT_LOCALE
+
+  const newPathname = '/' + [locale, ...segments].join('/')
   const url = new URL(request.url)
 
   url.pathname = newPathname

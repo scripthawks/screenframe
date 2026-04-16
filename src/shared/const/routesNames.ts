@@ -1,9 +1,14 @@
 export const RoutesNames = {
   AUTH: '/auth',
+  CONFIRMATION_SUCCESS: '/auth/confirmation-success',
   CREATE_NEW_PASSWORD: '/auth/create-new-password',
+  EMAIL_ALREADY_CONFIRMED: '/auth/verify-email?already-confirmed=true',
+  EMAIL_VERIFICATION: '/auth/email-verification',
   FAVORITES: '/favorites',
   FEED: '/feed',
   FORGOT_PASSWORD: '/auth/forgot-password',
+  LOGOUT: '/logout',
+  MAIN_PAGE: '/main',
   MESSENGER: '/messenger',
   PASSWORD_RECOVERY: '/auth/password-recovery',
   PRIVACY_POLICY: '/auth/privacy-policy',
@@ -14,4 +19,5 @@ export const RoutesNames = {
   SIGN_UP: '/auth/sign-up',
   STATISTICS: '/statistics',
   TERMS_OF_SERVICE: '/auth/terms-of-service',
+  VERIFY_EMAIL: '/auth/verify-email',
 }

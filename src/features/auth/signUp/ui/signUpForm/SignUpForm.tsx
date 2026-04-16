@@ -63,8 +63,7 @@ export const SingUpForm = () => {
     const touchedFieldNames = Object.keys(touchedFields) as Array<keyof SignUpSchema>
 
     triggerZodFieldError<SignUpSchema>(touchedFieldNames, trigger)
-    // eslint-disable-next-line
-  }, [t])
+  }, [t, touchedFields, trigger])
 
   const password = watch('password')
 
