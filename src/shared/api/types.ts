@@ -13,11 +13,7 @@ export type Extensions = {
   message: string
 }
 
-// export type BackendErrorResponse = {
-//   errorsMessages: BackendErrorMessage[]
-// }
-
-export type BackendErrorResponse = BackendErrorMessage[]
+export type BackendErrorResponse = BackendErrorMessage
 
 export type RtkQueryError = {
   error: FetchBaseQueryError

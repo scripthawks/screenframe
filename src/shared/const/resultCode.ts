@@ -8,3 +8,5 @@ export const resultCode = {
   TOO_MANY: 429,
   UNAUTHORIZED: 401,
 } as const
+
+export type ResultCodeTypes = (typeof resultCode)[keyof typeof resultCode]

@@ -1,27 +1,16 @@
 import { LocalesType } from '@/public/locales/ru'
 import { z } from 'zod'
 
+import { emailSchema, passwordSchema } from './schemas'
+
 export const createSignUpSchema = (t: LocalesType) => {
   return z
     .object({
       agreeToTerms: z.boolean().refine(value => value, {
         message: t.auth.authErrors.terms,
       }),
-      email: z
-        .string()
-        .trim()
-        .nonempty(t.auth.authErrors.email.nonEmpty)
-        .pipe(z.email(t.auth.authErrors.email.incorrect)),
-      password: z
-        .string()
-        .trim()
-        .nonempty(t.auth.authErrors.password.nonEmpty)
-        .min(6, t.auth.authErrors.password.min)
-        .max(20, t.auth.authErrors.password.max)
-        .regex(
-          /^[0-9a-zA-Z!"#$%&'()*+,\-./:;<=>?@[\\\]^_`{|}~]+$/,
-          t.auth.authErrors.password.regex
-        ),
+      email: emailSchema(t),
+      password: passwordSchema(t),
       passwordConfirmation: z.string().trim().nonempty(t.auth.authErrors.passwordConfirmation),
       username: z
         .string()
