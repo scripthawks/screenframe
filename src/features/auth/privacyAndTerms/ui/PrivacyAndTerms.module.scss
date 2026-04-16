@@ -1,0 +1,81 @@
+@use '../../../../shared/styles/index' as *;
+
+.main {
+  display: flex;
+  flex-direction: column;
+
+  width: 100%;
+  max-width: 1280px;
+}
+
+.backButton {
+  //justify-content: flex-start;
+}
+
+.arrow {
+  position: relative;
+  z-index: -9998;
+  bottom: 10px;
+
+  display: flex;
+
+  width: 300px;
+
+  fill: white;
+}
+
+.arrow:hover {
+  color: #cc1439;
+}
+
+.logo {
+  fill: white;
+}
+
+.logo:hover {
+  fill: $color-accent-500;
+}
+
+.img {
+  max-height: 24px;
+}
+
+.btn {
+  color: inherit;
+  text-decoration: none;
+
+  padding: 0 0 0 60px;
+  max-height: 24px;
+}
+
+.btn:hover {
+  color: $color-accent-500;
+}
+
+.textReturn {
+  text-decoration: none;
+}
+
+.textReturn:hover {
+  color: $color-accent-500;
+}
+
+.titleContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  max-width: 958px;
+  //justify-content: center;
+
+  margin: 0 auto;
+  text-align: center;
+}
+
+.title {
+  @include flex-block($justify-content: center);
+}
+
+.text {
+  text-align: left;
+}
