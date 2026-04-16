@@ -1,3 +1,5 @@
+'use client'
+
 import { RoutesNames, useTranslate } from '@/shared'
 import { redirect } from 'next/navigation'
 
