@@ -11,7 +11,7 @@ export interface CardProps {
   className?: string
 }
 
-const Card: FC<CardProps> = ({ children, className, footer, title }) => {
+export const Card: FC<CardProps> = ({ children, className, footer, title }) => {
   return (
     <div className={styles.cardWrapper}>
       <div className={clsx(styles.cardField, className)}>
@@ -24,5 +24,3 @@ const Card: FC<CardProps> = ({ children, className, footer, title }) => {
 }
 
 Card.displayName = 'Card'
-
-export { Card }
