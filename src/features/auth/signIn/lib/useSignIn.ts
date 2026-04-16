@@ -1,3 +1,5 @@
+import { useEffect } from 'react'
+
 import { useSignInMutation } from '@/features/auth/signIn/api/signInApi'
 import { BackendErrorMessage, resultCode, RoutesNames, showToast, SignInSchema } from '@/shared'
 import { useLazyMeQuery } from '@/shared/hoc/api/authApi'
@@ -7,8 +9,17 @@ import { useRouter } from 'next/navigation'
 export const useSignIn = (setFieldError?: (name: keyof SignInSchema, msg: string) => void) => {
   const { push } = useRouter()
 
-  const [loginUser, { isLoading }] = useSignInMutation()
-  const [me] = useLazyMeQuery()
+  const [loginUser, { isLoading, isSuccess }] = useSignInMutation()
+  const [me, { data: meData, isSuccess: isSuccessMe }] = useLazyMeQuery()
+  const userId = meData?.userId!
+
+  useEffect(() => {
+    if (isSuccess || isSuccessMe) {
+      push(RoutesNames.MAIN_PAGE)
+
+      return
+    }
+  }, [isSuccess, isSuccessMe, push, userId])
 
   const setError = (field: 'email' | 'password', message: string) => {
     if (setFieldError && field) {
