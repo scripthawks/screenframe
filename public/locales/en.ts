@@ -49,6 +49,7 @@ export const en = {
     enterEmail: 'Enter your email address and we will send you further instructions',
     failedToSentEmail: 'Failed to send email. Please try again later.',
     forgotPassword: 'Forgot Password',
+    goToForgotPassword: 'Go to Forgot Password',
     goToSignIn: 'Go to Sign In',
     haveAccount: 'Do you have an account?',
     incorrectInputData: 'Incorrect input data',

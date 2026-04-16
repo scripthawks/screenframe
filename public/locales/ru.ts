@@ -52,6 +52,7 @@ export const ru: LocalesType = {
     enterEmail: 'Введите адрес электронной почты, и мы вышлем вам дальнейшие инструкции',
     failedToSentEmail: 'Ошибка при отправке письма. Попробуйте, пожалуйста, позже',
     forgotPassword: 'Забыли пароль?',
+    goToForgotPassword: 'Перейти к восстановлению пароля',
     goToSignIn: 'Перейти к входу',
     haveAccount: 'Уже зарегистрированы?',
     incorrectInputData: 'Введенные данные некорректны',
