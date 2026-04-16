@@ -1,60 +1,44 @@
 'use client'
 
+import { useEffect } from 'react'
+
 import { AuthPage } from '@/entities'
 import { ResendLink } from '@/features/auth/resendLink'
 import { Loader, resultCode, RoutesNames } from '@/shared'
-import { LinkExpiredIcon, RegistrationConfirmationSvg } from '@/shared/assets/icons'
-import { FetchBaseQueryError } from '@reduxjs/toolkit/query'
+import { LinkExpiredIcon } from '@/shared/assets/icons'
 import { useRouter } from 'next/navigation'
 
 import { usePasswordRecovery } from '../lib/usePasswordRecovery'
 
 export const PasswordRecovery = () => {
   const { push } = useRouter()
-  const { code, data, error, errorMessage, isError, isLoading, isSuccess, t } =
-    usePasswordRecovery()
+  const { code, data, error, isError, isLoading, isSuccess, t } = usePasswordRecovery()
+
+  useEffect(() => {
+    if (isSuccess && (!data || data.resultCode === resultCode.SUCCESS)) {
+      push(`${RoutesNames.CREATE_NEW_PASSWORD}/?code=${code}`)
+
+      return
+    }
+  }, [isSuccess, data, code, push])
 
   if (isLoading) {
     return <Loader />
   }
 
-  if (isSuccess && (!data || data.resultCode === resultCode.SUCCESS)) {
-    push(`${RoutesNames.CREATE_NEW_PASSWORD}/?code=${code}`)
+  if (isError && error) {
+    return <ResendLink image={<LinkExpiredIcon />} type={'password'} />
   }
 
-  if (isError && error) {
-    let errorStatus = null as FetchBaseQueryError['status'] | null
-
-    if (error) {
-      errorStatus = 'status' in error! ? error.status : null
-    }
-
-    // 409 or BAD_REQUEST in error.data
-    if (errorMessage?.includes('already used') || errorStatus === 409) {
-      return (
-        <AuthPage
-          buttonName={t.auth.signIn}
-          image={<RegistrationConfirmationSvg />}
-          nextUrl={RoutesNames.SIGN_IN}
-          text={t.auth.alreadyConfirmedEmail}
-          title={t.auth.congratulations}
-        />
-      )
-    }
-
-    // Code expired or invalid code
-    if (errorMessage?.includes('expired') || errorMessage?.includes('Recovery token is invalid')) {
-      return <ResendLink image={<LinkExpiredIcon />} type={'email'} />
-    }
-  } else {
+  if (code === null) {
     return (
       <AuthPage
-        buttonName={t.auth.signIn}
+        buttonName={t.auth.forgotPassword}
         emptyUrl
-        image={<RegistrationConfirmationSvg />}
-        nextUrl={RoutesNames.SIGN_IN}
+        image={<LinkExpiredIcon />}
+        nextUrl={RoutesNames.FORGOT_PASSWORD}
         text={''}
-        title={t.auth.goToSignIn}
+        title={t.auth.goToForgotPassword}
       />
     )
   }
