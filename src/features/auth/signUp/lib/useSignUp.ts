@@ -1,10 +1,12 @@
+'use client'
+
 import { useState } from 'react'
 
 import { useSignUpMutation } from '@/features/auth/signUp/api/signUpApi'
 import {
-  BackendErrorMessage,
   BackendErrorResponse,
   resultCode,
+  ResultCodeTypes,
   showToast,
   SignUpSchema,
   useTranslate,
@@ -18,18 +20,20 @@ export const useSignUp = (setFieldError?: (name: keyof SignUpSchema, msg: string
   const [userRegistration, { data, isLoading }] = useSignUpMutation()
   const email = data?.data?.email
 
-  const setError = (messages: BackendErrorMessage[]) => {
-    messages.forEach(m => {
-      m.extensions.forEach(ex => {
-        if (ex.key === 'field') {
-          const field = ex.message as keyof SignUpSchema
-
-          if (setFieldError && field) {
-            setFieldError(field, m.message)
+  const setError = (payload: BackendErrorResponse, status: ResultCodeTypes) => {
+    if (setFieldError) {
+      if (status === resultCode.CONFLICT) {
+        payload.extensions.forEach(ex => {
+          if (ex.key === 'userName') {
+            setFieldError('username', payload.message)
+          } else if (ex.key === 'email') {
+            setFieldError('email', payload.message)
           }
-        }
-      })
-    })
+        })
+      } else if (status === resultCode.BAD_REQUEST) {
+        setFieldError('email', payload.message)
+      }
+    }
   }
 
   const submit = async (data: SignUpSchema) => {
@@ -41,15 +45,12 @@ export const useSignUp = (setFieldError?: (name: keyof SignUpSchema, msg: string
 
       if (typeof error.status === 'number') {
         const status = error.status
-        const payload = error.data as BackendErrorResponse | undefined
-        const messages = payload?.errorsMessages ?? []
+        const payload = error.data as BackendErrorResponse
 
-        if (status === resultCode.BAD_REQUEST) {
-          setError(messages)
-        } else if (status === resultCode.CONFLICT) {
-          setError(messages)
+        if (status === resultCode.BAD_REQUEST || status === resultCode.CONFLICT) {
+          setError(payload, status)
         } else {
-          showToast(false, messages[0]?.message ?? 'Some error')
+          showToast(false, payload.message ?? 'Some error')
         }
       } else {
         showToast(false, `${err}` || 'Some error')
