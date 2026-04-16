@@ -30,10 +30,10 @@ export const Controlled: Story = {
       <Checkbox
         {...args}
         checked={checked}
+        label={'Click here'}
         onCheckedChange={checked => {
           setChecked(checked)
         }}
-        label={'Click here'}
       />
     )
   },

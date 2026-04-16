@@ -2,15 +2,15 @@ import { Ref, forwardRef, memo, SVGProps } from 'react'
 
 const DoneAllOutline = (props: SVGProps<SVGSVGElement>, ref: Ref<SVGSVGElement>) => (
   <svg
-    xmlns={'http://www.w3.org/2000/svg'}
-    width={24}
-    height={24}
-    viewBox={'0 0 24 24'}
     fill={'none'}
+    height={24}
     ref={ref}
+    viewBox={'0 0 24 24'}
+    width={24}
+    xmlns={'http://www.w3.org/2000/svg'}
     {...props}
   >
-    <g fill={'currentColor'} clipPath={'url(#DoneAllOutline_svg__a)'}>
+    <g clipPath={'url(#DoneAllOutline_svg__a)'} fill={'currentColor'}>
       <path
         d={
           'M16.62 6.21a1 1 0 0 0-1.41.17l-7 9-3.43-4.18a1 1 0 1 0-1.56 1.25l4.17 5.18a1 1 0 0 0 .78.37 1 1 0 0 0 .83-.38l7.83-10a1 1 0 0 0-.21-1.41M21.62 6.21a1 1 0 0 0-1.41.17l-7 9-.61-.75-1.26 1.62 1.1 1.37a1 1 0 0 0 1.56-.01l7.83-10a1 1 0 0 0-.21-1.4'
@@ -20,7 +20,7 @@ const DoneAllOutline = (props: SVGProps<SVGSVGElement>, ref: Ref<SVGSVGElement>)
     </g>
     <defs>
       <clipPath id={'DoneAllOutline_svg__a'}>
-        <path fill={'currentColor'} d={'M0 0h24v24H0z'} />
+        <path d={'M0 0h24v24H0z'} fill={'currentColor'} />
       </clipPath>
     </defs>
   </svg>

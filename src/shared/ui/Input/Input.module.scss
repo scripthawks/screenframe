@@ -1,5 +1,4 @@
-@import '@/shared/styles/typography';
-@import '@/shared/styles/colors';
+@use '../../styles/index' as *;
 
 .inputWrapper {
   display: flex;

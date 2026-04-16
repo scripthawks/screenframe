@@ -1,3 +1,5 @@
+'use client'
+
 import { useEffect, useState } from 'react'
 
 import { CaptchaSpinner, Checkbox } from '@/shared'
@@ -9,40 +11,47 @@ import Link from 'next/link'
 import s from './Recaptcha.module.scss'
 
 export type RecaptchaStatus = 'idle' | 'pending' | 'verified' | 'error' | 'expired' | 'notVerified'
-type RecaptchaProps = {
+export type RecaptchaProps = {
   label?: string
   className?: string
   id?: string
   isStatus?: RecaptchaStatus
   onVerify?: () => void
+  onReset?: () => void
+  error?: string | undefined
 }
-export const Recaptcha = ({ className, isStatus = 'idle', onVerify }: RecaptchaProps) => {
+export const Recaptcha = (props: RecaptchaProps) => {
+  const { className, error, isStatus = 'idle', onReset, onVerify } = props
+
   const [checked, setChecked] = useState<boolean | 'indeterminate'>(false)
   const handleCheckboxChange = (checked: boolean) => {
     setChecked(checked)
     if (checked && onVerify) {
       onVerify()
     }
+    if (!checked && onReset) {
+      onReset()
+    }
   }
   const classNames = {
-    wrapper: clsx(s.wrapper, {
-      [s.wrapperError]: isStatus === 'expired' || isStatus === 'notVerified',
-    }),
+    checkbox: clsx(s.checkbox),
     container: clsx(s.container, className, {
-      [s.verified]: isStatus === 'verified',
       [s.error]: isStatus === 'error',
       [s.expired]: isStatus === 'expired',
       [s.notVerified]: isStatus === 'notVerified',
       [s.pending]: isStatus === 'pending',
+      [s.verified]: isStatus === 'verified',
     }),
-    checkbox: clsx(s.checkbox),
-    label: clsx(s.label),
+    cornerLabel: clsx(s.cornerLabel),
     errorContainer: clsx(s.errorContainer, {
-      [s.errorInsibe]: isStatus === 'verified',
       [s.errorAboce]: isStatus === 'expired',
+      [s.errorInsibe]: isStatus === 'verified',
     }),
     errorMessage: clsx(s.errorMessage),
-    cornerLabel: clsx(s.cornerLabel),
+    label: clsx(s.label),
+    wrapper: clsx(s.wrapper, {
+      [s.wrapperError]: isStatus === 'expired' || isStatus === 'notVerified',
+    }),
   }
 
   const handleClick = () => {
@@ -89,8 +98,8 @@ export const Recaptcha = ({ className, isStatus = 'idle', onVerify }: RecaptchaP
             className={s.checkbox}
             label={"I'm not a robot"}
             labelClassName={s.labelchekbox}
-            rootClassName={s.rootChekbox}
             onCheckedChange={handleCheckboxChange}
+            rootClassName={s.rootChekbox}
           />
         )
     }
@@ -124,7 +133,7 @@ export const Recaptcha = ({ className, isStatus = 'idle', onVerify }: RecaptchaP
 
       {(isStatus === 'error' || isStatus === 'notVerified') && (
         <div className={classNames.errorContainer}>
-          <div className={classNames.errorMessage}>{getErrorMessage()}</div>
+          <div className={classNames.errorMessage}>{error || getErrorMessage()}</div>
         </div>
       )}
     </div>

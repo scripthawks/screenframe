@@ -18,12 +18,12 @@ export type ButtonProps = {
 const Button = forwardRef<HTMLButtonElement, ButtonProps>(
   (
     {
-      variant = 'primary',
+      asChild = false,
+      className,
+      compact = false,
       fullWidth = false,
       isWithIcon = false,
-      asChild = false,
-      compact = false,
-      className,
+      variant = 'primary',
       ...rest
     },
     ref
@@ -32,7 +32,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
 
     const classNames = { button: clsx(s.button, s[variant], fullWidth && s.fullWidth, className) }
 
-    return <Comp ref={ref} className={classNames.button} {...rest} />
+    return <Comp className={classNames.button} ref={ref} {...rest} />
   }
 )
 

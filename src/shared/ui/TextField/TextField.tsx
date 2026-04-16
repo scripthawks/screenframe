@@ -1,4 +1,4 @@
-import React, { ComponentPropsWithoutRef, ComponentRef, forwardRef } from 'react'
+import { ComponentPropsWithoutRef, ComponentRef, forwardRef } from 'react'
 
 import { Input } from '@/shared'
 

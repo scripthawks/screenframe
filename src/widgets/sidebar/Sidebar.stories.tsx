@@ -1,10 +1,11 @@
-import type { Meta, StoryObj } from '@storybook/react'
+import type { Meta, StoryObj } from '@storybook/nextjs-vite'
+
 import { Sidebar } from '@/widgets/sidebar'
 
 const meta = {
-  title: 'Components/Sidebar',
   component: Sidebar,
   tags: ['autodocs'],
+  title: 'Components/Sidebar',
 } satisfies Meta<typeof Sidebar>
 
 export default meta

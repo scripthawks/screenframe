@@ -1,3 +1,5 @@
+'use client'
+
 import { Loader } from '@/shared'
 import dynamic from 'next/dynamic'
 

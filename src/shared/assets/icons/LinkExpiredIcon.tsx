@@ -2,12 +2,12 @@ import { Ref, forwardRef, memo, SVGProps } from 'react'
 
 const LinkExpiredIcon = (props: SVGProps<SVGSVGElement>, ref: Ref<SVGSVGElement>) => (
   <svg
-    width={'473'}
     height={'353'}
     ref={ref}
+    width={'473'}
     {...props}
-    viewBox={'0 0 473 353'}
     fill={'none'}
+    viewBox={'0 0 473 353'}
     xmlns={'http://www.w3.org/2000/svg'}
   >
     <path d={'M473 309.72H0V309.957H473V309.72Z'} fill={'#4C4C4C'} />
@@ -192,9 +192,9 @@ const LinkExpiredIcon = (props: SVGProps<SVGSVGElement>, ref: Ref<SVGSVGElement>
       fill={'#263238'}
     />
     <path
-      opacity={'0.2'}
       d={'M188.264 316.021L181.594 313.845L179.456 321.962L186.135 324.128L188.264 316.021Z'}
       fill={'black'}
+      opacity={'0.2'}
     />
     <path
       d={
@@ -203,11 +203,11 @@ const LinkExpiredIcon = (props: SVGProps<SVGSVGElement>, ref: Ref<SVGSVGElement>
       fill={'#397DF6'}
     />
     <path
-      opacity={'0.3'}
       d={
         'M221.288 174.934C216.558 185.662 214.222 208.99 216.057 219.727C219.406 205.963 223.436 189.597 226.548 177.006C225.498 173.355 223.757 169.334 221.288 174.934Z'
       }
       fill={'black'}
+      opacity={'0.3'}
     />
     <path
       d={'M189.787 323.031L176.524 319.379L176.789 313.977L191.716 319.133L189.787 323.031Z'}
@@ -232,11 +232,11 @@ const LinkExpiredIcon = (props: SVGProps<SVGSVGElement>, ref: Ref<SVGSVGElement>
       fill={'#263238'}
     />
     <path
-      opacity={'0.3'}
       d={
         'M203.759 117.03C206.729 109.14 213.039 109.008 215.773 111.098C215.575 111.467 215.366 111.836 215.158 112.205C213.674 114.788 212.048 117.286 210.286 119.688C208.479 122.159 206.49 124.493 204.336 126.669C203.655 127.341 202.955 128.003 202.226 128.647C201.976 124.711 202.496 120.765 203.759 117.03Z'
       }
       fill={'black'}
+      opacity={'0.3'}
     />
     <path
       d={
@@ -265,9 +265,9 @@ const LinkExpiredIcon = (props: SVGProps<SVGSVGElement>, ref: Ref<SVGSVGElement>
       fill={'#263238'}
     />
     <path
-      opacity={'0.2'}
       d={'M232.716 318.575H225.697L225.829 326.947H232.839L232.716 318.575Z'}
       fill={'black'}
+      opacity={'0.2'}
     />
     <path
       d={
@@ -298,11 +298,11 @@ const LinkExpiredIcon = (props: SVGProps<SVGSVGElement>, ref: Ref<SVGSVGElement>
       fill={'#263238'}
     />
     <path
-      opacity={'0.3'}
       d={
         'M247.152 102.281C246.376 106.766 245.421 112.867 244.759 119.309C244.759 119.309 241.334 112.593 240.71 106.851C240.085 101.108 245.014 100.673 247.152 102.281Z'
       }
       fill={'black'}
+      opacity={'0.3'}
     />
     <g opacity={'0.2'}>
       <path
@@ -331,11 +331,11 @@ const LinkExpiredIcon = (props: SVGProps<SVGSVGElement>, ref: Ref<SVGSVGElement>
       fill={'#FF8B7B'}
     />
     <path
-      opacity={'0.2'}
       d={
         'M225.394 84.686C225.566 85.4595 225.689 86.2431 225.763 87.0321C227.929 86.5969 230.824 84.2887 231.127 82.0751C231.233 81.3422 231.259 80.5998 231.202 79.8614L225.394 84.686Z'
       }
       fill={'black'}
+      opacity={'0.2'}
     />
     <path
       d={
@@ -444,11 +444,11 @@ const LinkExpiredIcon = (props: SVGProps<SVGSVGElement>, ref: Ref<SVGSVGElement>
       fill={'#234E99'}
     />
     <path
-      opacity={'0.6'}
       d={
         'M185.331 66.5891C185.329 72.2634 183.343 77.7584 179.717 82.123C176.091 86.4876 171.054 89.4471 165.476 90.4892C159.898 91.5312 154.132 90.5903 149.174 87.8292C144.217 85.0682 140.381 80.6608 138.331 75.37C136.281 70.0791 136.145 64.2379 137.947 58.8574C139.748 53.4769 143.375 48.8957 148.198 45.9069C153.022 42.9181 158.738 41.7099 164.358 42.4912C169.978 43.2725 175.149 45.9944 178.974 50.1855C178.981 50.1821 178.989 50.1803 178.997 50.1803C179.006 50.1803 179.014 50.1821 179.021 50.1855C183.099 54.6733 185.35 60.525 185.331 66.5891Z'
       }
       fill={'white'}
+      opacity={'0.6'}
     />
     <path
       d={

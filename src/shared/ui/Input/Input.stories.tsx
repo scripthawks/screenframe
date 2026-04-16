@@ -3,12 +3,12 @@ import { Input } from '@/shared/ui'
 import { Meta, StoryObj } from '@storybook/nextjs-vite'
 
 const meta: Meta<typeof Input> = {
-  title: 'Components/Input',
-  component: Input,
   args: {
     placeholder: 'Введите текст...',
   },
+  component: Input,
   tags: ['autodocs'],
+  title: 'Components/Input',
 }
 
 export default meta
@@ -19,8 +19,8 @@ type Story = StoryObj<typeof Input>
 export const EmailInput: Story = {
   args: {
     label: 'Email',
-    variant: 'email',
     placeholder: 'Введите email',
+    variant: 'email',
   },
 }
 
@@ -28,8 +28,8 @@ export const EmailInput: Story = {
 export const PasswordInput: Story = {
   args: {
     label: 'Пароль',
-    variant: 'password',
     placeholder: 'Введите пароль',
+    variant: 'password',
   },
 }
 
@@ -37,28 +37,28 @@ export const PasswordInput: Story = {
 export const SearchInput: Story = {
   args: {
     label: 'Поиск',
-    variant: 'search',
     placeholder: 'Поиск...',
     startIcon: <Search />,
+    variant: 'search',
   },
 }
 
 // 4. Error Input
 export const ErrorInput: Story = {
   args: {
+    defaultValue: 'user@example',
+    error: 'Некорректный email',
     label: 'Email',
     variant: 'email',
-    error: 'Некорректный email',
-    defaultValue: 'user@example',
   },
 }
 
 // 5. Disabled Input
 export const DisabledInput: Story = {
   args: {
-    label: 'Пароль',
-    variant: 'password',
-    placeholder: 'Введите пароль',
     disabled: true,
+    label: 'Пароль',
+    placeholder: 'Введите пароль',
+    variant: 'password',
   },
 }

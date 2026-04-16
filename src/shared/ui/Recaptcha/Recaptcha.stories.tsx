@@ -34,28 +34,28 @@ export const Controlled: Story = {
     }
 
     return (
-      <Recaptcha {...args} label={'I’m not a robot'} isStatus={status} onVerify={handleVerify} />
+      <Recaptcha {...args} isStatus={status} label={'I’m not a robot'} onVerify={handleVerify} />
     )
   },
 }
 
 export const Pending: Story = {
   args: {
-    label: 'I’m not a robot',
     isStatus: 'pending',
+    label: 'I’m not a robot',
   },
 }
 
 export const Expired: Story = {
   args: {
-    label: 'I’m not a robot',
     isStatus: 'expired',
+    label: 'I’m not a robot',
   },
 }
 
 export const NotVerified: Story = {
   args: {
-    label: 'I’m not a robot',
     isStatus: 'notVerified',
+    label: 'I’m not a robot',
   },
 }

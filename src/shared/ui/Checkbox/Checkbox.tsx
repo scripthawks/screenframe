@@ -1,4 +1,4 @@
-import { type ComponentPropsWithRef, type ReactNode, useId } from 'react'
+import { ComponentPropsWithRef, ReactNode } from 'react'
 
 import { Typography } from '@/shared'
 import { CheckmarkOutline } from '@/shared/assets/icons'
@@ -17,25 +17,25 @@ export type CheckboxProps = {
 } & ComponentPropsWithRef<typeof CheckboxRadix.Root>
 
 export const Checkbox = ({
-  disabled,
-  id,
-  label,
-  className,
   checked,
-  onCheckedChange,
-  indicatorClassName,
-  rootClassName,
-  labelClassName,
+  className,
+  disabled,
   error,
+  id,
+  indicatorClassName,
+  label,
+  labelClassName,
+  name,
+  onCheckedChange,
+  rootClassName,
   ...rest
 }: CheckboxProps) => {
-  const generatedId = useId()
-  const checkboxId = id ?? generatedId
+  const checkboxId = id || (name ? `checkbox-${name}` : undefined)
 
   const classNames = {
     checkbox: clsx(s.checkbox, disabled && s.disabled),
-    checkboxIcon: clsx(s.checkboxIcon),
     checkboxContainer: clsx(s.checkboxContainer, disabled && s.disabled),
+    checkboxIcon: clsx(s.checkboxIcon),
     container: clsx(s.container, className),
     error: clsx(error && s.error),
     indicator: clsx(s.indicator, indicatorClassName),

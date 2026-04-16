@@ -1,3 +1,5 @@
+'use client'
+
 import { ComponentPropsWithoutRef } from 'react'
 import { FieldValues, useController, UseControllerProps } from 'react-hook-form'
 
@@ -11,7 +13,7 @@ export type ControlledInputProps<T extends FieldValues> = Omit<
   ComponentPropsWithoutRef<typeof Input>
 
 export const ControlledTextField = <T extends FieldValues>(props: ControlledInputProps<T>) => {
-  const { control, shouldUnregister, disabled, name, ...rest } = props
+  const { control, disabled, name, shouldUnregister, ...rest } = props
 
   const {
     field: { ...restField },
