@@ -2,12 +2,12 @@ import { Ref, forwardRef, memo, SVGProps } from 'react'
 
 const RegistrationConfirmationSvg = (props: SVGProps<SVGSVGElement>, ref: Ref<SVGSVGElement>) => (
   <svg
-    width={'432'}
     height={'300'}
     ref={ref}
+    width={'432'}
     {...props}
-    viewBox={'0 0 432 300'}
     fill={'none'}
+    viewBox={'0 0 432 300'}
     xmlns={'http://www.w3.org/2000/svg'}
   >
     <path

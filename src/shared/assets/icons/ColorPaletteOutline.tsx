@@ -2,15 +2,15 @@ import { Ref, forwardRef, memo, SVGProps } from 'react'
 
 const ColorPaletteOutline = (props: SVGProps<SVGSVGElement>, ref: Ref<SVGSVGElement>) => (
   <svg
-    xmlns={'http://www.w3.org/2000/svg'}
-    width={24}
-    height={24}
-    viewBox={'0 0 24 24'}
     fill={'none'}
+    height={24}
     ref={ref}
+    viewBox={'0 0 24 24'}
+    width={24}
+    xmlns={'http://www.w3.org/2000/svg'}
     {...props}
   >
-    <g fill={'currentColor'} clipPath={'url(#ColorPaletteOutline_svg__a)'}>
+    <g clipPath={'url(#ColorPaletteOutline_svg__a)'} fill={'currentColor'}>
       <path
         d={
           'M19.54 5.08A10.6 10.6 0 0 0 11.91 2a10 10 0 0 0-.05 20 2.58 2.58 0 0 0 2.53-1.89 2.52 2.52 0 0 0-.57-2.28.5.5 0 0 1 .37-.83h1.65A6.15 6.15 0 0 0 22 11.33a8.48 8.48 0 0 0-2.46-6.25M15.88 15h-1.65a2.49 2.49 0 0 0-1.87 4.15.49.49 0 0 1 .12.49c-.05.21-.28.34-.59.36a8 8 0 0 1-7.82-9.11A8.1 8.1 0 0 1 11.92 4H12a8.47 8.47 0 0 1 6.1 2.48 6.5 6.5 0 0 1 1.9 4.77A4.17 4.17 0 0 1 15.88 15'
@@ -24,7 +24,7 @@ const ColorPaletteOutline = (props: SVGProps<SVGSVGElement>, ref: Ref<SVGSVGElem
     </g>
     <defs>
       <clipPath id={'ColorPaletteOutline_svg__a'}>
-        <path fill={'currentColor'} d={'M0 0h24v24H0z'} />
+        <path d={'M0 0h24v24H0z'} fill={'currentColor'} />
       </clipPath>
     </defs>
   </svg>

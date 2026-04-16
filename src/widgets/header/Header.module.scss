@@ -1,4 +1,4 @@
-@import '@/shared/styles/colors';
+@use '../../shared/styles/index' as *;
 
 .container {
   display: flex;

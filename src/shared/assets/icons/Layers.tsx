@@ -2,15 +2,15 @@ import { Ref, forwardRef, memo, SVGProps } from 'react'
 
 const Layers = (props: SVGProps<SVGSVGElement>, ref: Ref<SVGSVGElement>) => (
   <svg
-    xmlns={'http://www.w3.org/2000/svg'}
-    width={24}
-    height={24}
-    viewBox={'0 0 24 24'}
     fill={'none'}
+    height={24}
     ref={ref}
+    viewBox={'0 0 24 24'}
+    width={24}
+    xmlns={'http://www.w3.org/2000/svg'}
     {...props}
   >
-    <g fill={'currentColor'} clipPath={'url(#Layers_svg__a)'}>
+    <g clipPath={'url(#Layers_svg__a)'} fill={'currentColor'}>
       <path
         d={
           'm3.24 7.29 8.52 4.63a.51.51 0 0 0 .48 0l8.52-4.63a.44.44 0 0 0-.05-.81L12.19 3a.5.5 0 0 0-.38 0L3.29 6.48a.44.44 0 0 0-.05.81'
@@ -29,7 +29,7 @@ const Layers = (props: SVGProps<SVGSVGElement>, ref: Ref<SVGSVGElement>) => (
     </g>
     <defs>
       <clipPath id={'Layers_svg__a'}>
-        <path fill={'currentColor'} d={'M0 0h24v24H0z'} />
+        <path d={'M0 0h24v24H0z'} fill={'currentColor'} />
       </clipPath>
     </defs>
   </svg>

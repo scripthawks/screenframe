@@ -2,12 +2,12 @@ import { Typography } from '@/shared/ui'
 import { Meta, StoryObj } from '@storybook/nextjs-vite'
 
 const meta: Meta<typeof Typography> = {
-  title: 'Components/Typography',
-  component: Typography,
-  tags: ['autodocs'],
   args: {
     children: 'Пример текста',
   },
+  component: Typography,
+  tags: ['autodocs'],
+  title: 'Components/Typography',
 }
 
 export default meta

@@ -2,15 +2,15 @@ import { Ref, forwardRef, memo, SVGProps } from 'react'
 
 const EyeOffOutline = (props: SVGProps<SVGSVGElement>, ref: Ref<SVGSVGElement>) => (
   <svg
-    xmlns={'http://www.w3.org/2000/svg'}
-    width={24}
-    height={24}
-    viewBox={'0 0 24 24'}
     fill={'none'}
+    height={24}
     ref={ref}
+    viewBox={'0 0 24 24'}
+    width={24}
+    xmlns={'http://www.w3.org/2000/svg'}
     {...props}
   >
-    <g fill={'currentColor'} clipPath={'url(#EyeOffOutline_svg__a)'}>
+    <g clipPath={'url(#EyeOffOutline_svg__a)'} fill={'currentColor'}>
       <path
         d={
           'M4.71 3.29a1.004 1.004 0 1 0-1.42 1.42l5.63 5.63a3.5 3.5 0 0 0 4.74 4.74l5.63 5.63a1.002 1.002 0 0 0 1.639-.325 1 1 0 0 0-.219-1.095zM12 13.5a1.5 1.5 0 0 1-1.5-1.5v-.07l1.56 1.56z'
@@ -24,7 +24,7 @@ const EyeOffOutline = (props: SVGProps<SVGSVGElement>, ref: Ref<SVGSVGElement>) 
     </g>
     <defs>
       <clipPath id={'EyeOffOutline_svg__a'}>
-        <path fill={'currentColor'} d={'M0 0h24v24H0z'} />
+        <path d={'M0 0h24v24H0z'} fill={'currentColor'} />
       </clipPath>
     </defs>
   </svg>

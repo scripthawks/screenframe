@@ -1,5 +1,4 @@
-@import '@/shared/styles/typography';
-@import '@/shared/styles/colors';
+@use '../../styles/index' as *;
 
 @mixin text-common-styles($font-size, $font-weight, $line-height) {
   font-family: $font-family-primary;

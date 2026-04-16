@@ -1,4 +1,5 @@
 'use client'
+
 import {
   useState,
   forwardRef,
@@ -29,23 +30,24 @@ export type InputProps = Omit<InputHTMLAttributes<HTMLInputElement>, 'type'> & {
 
 const Input = forwardRef<HTMLInputElement, InputProps>((props, ref) => {
   const {
-    label,
-    error,
     className,
-    startIcon,
+    disabled,
     endIcon,
-    variant = 'text',
+    error,
+    label,
+    name,
     onChange,
     onChangeValue,
     onEnter,
     onKeyDown,
-    disabled,
+    startIcon,
     value,
+    variant = 'text',
     ...rest
   } = props
 
   const generatedId = useId()
-  const inputId = rest.id ?? generatedId
+  const inputId = name ? `input-${name}` : generatedId
 
   const [showPassword, setShowPassword] = useState(false)
 
@@ -62,10 +64,10 @@ const Input = forwardRef<HTMLInputElement, InputProps>((props, ref) => {
   const inputClasses = clsx(
     s.inputField,
     {
-      [s.withStartIcon]: Boolean(startIcon) || isSearch,
-      [s.withEndIcon]: Boolean(endIcon) || isPassword,
-      [s.inputError]: !!error,
       [s.inputDisabled]: disabled,
+      [s.inputError]: !!error,
+      [s.withEndIcon]: Boolean(endIcon) || isPassword,
+      [s.withStartIcon]: Boolean(startIcon) || isSearch,
     },
     className
   )
@@ -89,9 +91,9 @@ const Input = forwardRef<HTMLInputElement, InputProps>((props, ref) => {
       {label && (
         <Typography
           as={'label'}
+          className={s.inputLabel}
           htmlFor={inputId}
           variant={'regularText14'}
-          className={s.inputLabel}
         >
           {label}
         </Typography>
@@ -103,15 +105,15 @@ const Input = forwardRef<HTMLInputElement, InputProps>((props, ref) => {
         )}
 
         <input
-          id={inputId}
-          ref={ref}
-          type={htmlType}
-          disabled={disabled}
-          className={inputClasses}
-          aria-invalid={!!error}
           aria-describedby={error ? `${inputId}-error` : undefined}
+          aria-invalid={!!error}
+          className={inputClasses}
+          disabled={disabled}
+          id={inputId}
           onChange={handleInputChange}
           onKeyDown={handleKeyDown}
+          ref={ref}
+          type={htmlType}
           value={value}
           {...rest}
         />
@@ -140,10 +142,10 @@ const Input = forwardRef<HTMLInputElement, InputProps>((props, ref) => {
       {error && (
         <Typography
           as={'span'}
+          className={s.inputErrorMessage}
           id={`${inputId}-error`}
           role={'alert'}
           variant={'regularText14'}
-          className={s.inputErrorMessage}
         >
           {error}
         </Typography>

@@ -2,15 +2,15 @@ import { Ref, forwardRef, memo, SVGProps } from 'react'
 
 const MoreHorizontalOutline = (props: SVGProps<SVGSVGElement>, ref: Ref<SVGSVGElement>) => (
   <svg
-    xmlns={'http://www.w3.org/2000/svg'}
-    width={24}
-    height={24}
-    viewBox={'0 0 24 24'}
     fill={'none'}
+    height={24}
     ref={ref}
+    viewBox={'0 0 24 24'}
+    width={24}
+    xmlns={'http://www.w3.org/2000/svg'}
     {...props}
   >
-    <g fill={'currentColor'} clipPath={'url(#MoreHorizontalOutline_svg__a)'}>
+    <g clipPath={'url(#MoreHorizontalOutline_svg__a)'} fill={'currentColor'}>
       <path
         d={
           'M12 14a2 2 0 1 0 0-4 2 2 0 0 0 0 4M19 14a2 2 0 1 0 0-4 2 2 0 0 0 0 4M5 14a2 2 0 1 0 0-4 2 2 0 0 0 0 4'
@@ -19,7 +19,7 @@ const MoreHorizontalOutline = (props: SVGProps<SVGSVGElement>, ref: Ref<SVGSVGEl
     </g>
     <defs>
       <clipPath id={'MoreHorizontalOutline_svg__a'}>
-        <path fill={'currentColor'} d={'M0 0h24v24H0z'} />
+        <path d={'M0 0h24v24H0z'} fill={'currentColor'} />
       </clipPath>
     </defs>
   </svg>

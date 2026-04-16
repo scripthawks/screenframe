@@ -1,4 +1,5 @@
 'use client'
+
 import { forwardRef, ReactElement, useImperativeHandle, useRef, useState } from 'react'
 
 import { Typography } from '@/shared'
@@ -27,7 +28,7 @@ type SelectProps = {
 }
 
 const SelectBox = forwardRef<HTMLButtonElement, SelectProps>(
-  ({ options, value, disabled, onChange, label, className, variant, isMobile }, ref) => {
+  ({ className, disabled, isMobile, label, onChange, options, value, variant }, ref) => {
     const SELECT_CONTENT_VISIBLE_HEIGHT = 109
     const localTriggerRef = useRef<HTMLButtonElement>(null)
 
@@ -48,17 +49,17 @@ const SelectBox = forwardRef<HTMLButtonElement, SelectProps>(
     return (
       <div className={className}>
         {label && (
-          <Typography as={'span'} variant={'regularText14'} className={s.inputLabel}>
+          <Typography as={'span'} className={s.inputLabel} variant={'regularText14'}>
             {label}
           </Typography>
         )}
         <Select.Root
-          value={value}
-          onValueChange={value => onChange?.(value)}
-          onOpenChange={handleOpenChange}
           disabled={disabled}
+          onOpenChange={handleOpenChange}
+          onValueChange={value => onChange?.(value)}
+          value={value}
         >
-          <Select.Trigger ref={localTriggerRef} className={clsx(variant && s[variant], s.trigger)}>
+          <Select.Trigger className={clsx(variant && s[variant], s.trigger)} ref={localTriggerRef}>
             <div className={s.triggerValue}>
               {selectedOption?.image && <span className={s.icon}>{selectedOption.image}</span>}
               {variant !== 'mobileLang' ? (
@@ -66,22 +67,22 @@ const SelectBox = forwardRef<HTMLButtonElement, SelectProps>(
               ) : null}
             </div>
             <Select.Icon className={s.selectedIcon}>
-              <ArrowIosDownOutline width={isMobile ? 16 : 24} height={isMobile ? 16 : 24} />
+              <ArrowIosDownOutline height={isMobile ? 16 : 24} width={isMobile ? 16 : 24} />
             </Select.Icon>
           </Select.Trigger>
           <Select.Portal>
             <Select.Content
-              style={{
-                width: variant !== 'mobileLang' ? contentWidth : 'inherit',
-                maxHeight: SELECT_CONTENT_VISIBLE_HEIGHT,
-              }}
               className={clsx(s.content, variant && s[variant])}
               position={'popper'}
               sideOffset={-1}
+              style={{
+                maxHeight: SELECT_CONTENT_VISIBLE_HEIGHT,
+                width: variant !== 'mobileLang' ? contentWidth : 'inherit',
+              }}
             >
               <Select.Viewport>
                 {options.map(option => (
-                  <Select.Item key={option.id} value={option.value} className={s.item}>
+                  <Select.Item className={s.item} key={option.id} value={option.value}>
                     {option.image && <span className={s.icon}>{option.image}</span>}
                     <Select.ItemText>{option.label}</Select.ItemText>
                   </Select.Item>
@@ -96,4 +97,4 @@ const SelectBox = forwardRef<HTMLButtonElement, SelectProps>(
 )
 
 SelectBox.displayName = 'SelectBox'
-export { SelectBox }
+export default SelectBox

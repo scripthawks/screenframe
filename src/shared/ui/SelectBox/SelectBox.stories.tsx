@@ -7,12 +7,12 @@ import { Meta, StoryObj } from '@storybook/nextjs-vite'
 import s from './SelectBox.module.scss'
 
 const meta = {
-  title: 'Components/SelectBox',
   component: SelectBox,
   parameters: {
     layout: 'centered',
   },
   tags: ['autodocs'],
+  title: 'Components/SelectBox',
 } satisfies Meta<typeof SelectBox>
 
 export default meta
@@ -33,12 +33,12 @@ export const Default: Story = {
 
     return (
       <SelectBox
+        className={s.testDesktopWidth}
+        label={'Select-Box'}
+        onChange={setValue}
         options={defaultOptions}
         value={value}
-        onChange={setValue}
         variant={'desktop'}
-        label={'Select-Box'}
-        className={s.testDesktopWidth}
       />
     )
   },
@@ -50,21 +50,21 @@ export const Disabled: Story = {
 
     return (
       <SelectBox
+        className={s.testDesktopWidth}
+        disabled
+        label={'Select-Box'}
+        onChange={setValue}
         options={defaultOptions}
         value={value}
-        disabled
-        onChange={setValue}
         variant={'desktop'}
-        label={'Select-Box'}
-        className={s.testDesktopWidth}
       />
     )
   },
 }
 
 const flagOptions = [
-  { label: 'Russian', image: <FlagRussia />, value: 'ru' },
-  { label: 'English', image: <FlagUnitedKingdom />, value: 'en' },
+  { image: <FlagRussia />, label: 'Russian', value: 'ru' },
+  { image: <FlagUnitedKingdom />, label: 'English', value: 'en' },
 ]
 
 export const Languages: Story = {
@@ -73,11 +73,11 @@ export const Languages: Story = {
 
     return (
       <SelectBox
+        className={s.testLangWidth}
+        onChange={setValue}
         options={flagOptions}
         value={value}
-        onChange={setValue}
         variant={'desktop'}
-        className={s.testLangWidth}
       />
     )
   },
@@ -89,12 +89,12 @@ export const LanguagesMobile: Story = {
 
     return (
       <SelectBox
-        options={flagOptions}
-        value={value}
-        onChange={setValue}
-        variant={'mobileLang'}
         className={s.mobileLang}
         isMobile
+        onChange={setValue}
+        options={flagOptions}
+        value={value}
+        variant={'mobileLang'}
       />
     )
   },
@@ -113,11 +113,11 @@ export const Pagination: Story = {
 
     return (
       <SelectBox
+        isMobile
+        onChange={setValue}
         options={paginationOptions}
         value={value}
-        onChange={setValue}
         variant={'pagination'}
-        isMobile
       />
     )
   },

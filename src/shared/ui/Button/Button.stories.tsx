@@ -4,23 +4,23 @@ import { Meta, StoryObj } from '@storybook/nextjs-vite'
 import { fn } from '@vitest/spy'
 
 const meta: Meta = {
-  title: 'Components/Button',
-  component: Button,
+  args: {
+    children: 'Button',
+    onClick: fn(),
+  },
   argTypes: {
     children: {
       control: 'text',
     },
     variant: {
-      control: { type: 'select' },
       color: { control: 'color' },
+      control: { type: 'select' },
       options: ['primary', 'secondary', 'outline', 'text', 'withIcon'],
     },
   },
+  component: Button,
   tags: ['autodocs'],
-  args: {
-    children: 'Button',
-    onClick: fn(),
-  },
+  title: 'Components/Button',
 }
 
 export default meta
@@ -30,8 +30,8 @@ export const Primary: Story = {
   args: {
     children: 'Primary Button',
     disabled: false,
-    variant: 'primary',
     onClick: fn(),
+    variant: 'primary',
   },
 }
 
@@ -54,10 +54,10 @@ export const Outlined: Story = {
 export const FullWidth: Story = {
   args: {
     ...Primary.args,
-    className: 'fullWidthButton',
     children: 'Full Width Button',
-    variant: 'outlined',
+    className: 'fullWidthButton',
     fullWidth: true,
+    variant: 'outlined',
   },
 }
 
@@ -72,13 +72,17 @@ export const Text: Story = {
 export const Disabled: Story = {
   ...Primary.args,
   args: {
-    disabled: true,
     children: 'Disabled Button',
+    disabled: true,
   },
 }
 
 export const ButtonWithIcon: Story = {
   ...Primary.args,
+  args: {
+    text: 'English',
+    variant: 'withIcon',
+  },
   render: args => (
     <Button asChild {...args}>
       <a href={'#'}>
@@ -87,14 +91,14 @@ export const ButtonWithIcon: Story = {
       </a>
     </Button>
   ),
-  args: {
-    text: 'English',
-    variant: 'withIcon',
-  },
 }
 
 export const Back: Story = {
   ...Primary.args,
+  args: {
+    text: 'LogOut',
+    variant: 'withIcon',
+  },
   render: args => (
     <Button asChild {...args}>
       <a href={'#'}>
@@ -103,26 +107,22 @@ export const Back: Story = {
       </a>
     </Button>
   ),
-  args: {
-    text: 'LogOut',
-    variant: 'withIcon',
-  },
 }
 
 export const TextWithIcon: Story = {
   ...Primary.args,
+  args: {
+    text: 'Settings',
+    variant: 'withIcon',
+  },
   render: args => (
     <Button asChild {...args}>
       <a href={'#'}>
         <SettingsOutline />
-        <Typography as={'span'} variant={'h3'} style={{ color: 'inherit' }}>
+        <Typography as={'span'} style={{ color: 'inherit' }} variant={'h3'}>
           {args.text}
         </Typography>
       </a>
     </Button>
   ),
-  args: {
-    variant: 'withIcon',
-    text: 'Settings',
-  },
 }

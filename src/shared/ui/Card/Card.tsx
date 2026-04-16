@@ -11,7 +11,7 @@ export interface CardProps {
   className?: string
 }
 
-export const Card: FC<CardProps> = ({ title, children, footer, className }) => {
+export const Card: FC<CardProps> = ({ children, className, footer, title }) => {
   return (
     <div className={styles.cardWrapper}>
       <div className={clsx(styles.cardField, className)}>

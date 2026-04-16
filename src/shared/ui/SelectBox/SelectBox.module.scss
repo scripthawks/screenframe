@@ -1,5 +1,4 @@
-@import '@/shared/styles/colors';
-@import '@/shared/styles/typography';
+@use '../../styles/index' as *;
 
 .testDesktopWidth {
   width: 240px;

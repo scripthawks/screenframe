@@ -1,21 +1,22 @@
 'use client'
 
-import { RoutesNames, SelectBox, useTranslate } from '@/shared'
+import { RoutesNames, SelectBoxDynamic, useTranslate } from '@/shared'
 import { BellOutlineIcon, FlagRussia, FlagUnitedKingdom } from '@/shared/assets/icons'
 import { Button, Typography } from '@/shared/ui'
+import Link from 'next/link'
 import { usePathname, useRouter } from 'next/navigation'
 
 import s from './Header.module.scss'
 
 const options = [
-  { id: 'en', value: 'en', label: 'English', image: <FlagUnitedKingdom /> },
-  { id: 'ru', value: 'ru', label: 'Russian', image: <FlagRussia /> },
+  { id: 'en', image: <FlagUnitedKingdom />, label: 'English', value: 'en' },
+  { id: 'ru', image: <FlagRussia />, label: 'Russian', value: 'ru' },
 ]
 
 export const Header = ({ isAuth = false }: { isAuth?: boolean }) => {
   const { push } = useRouter()
   const pathname = usePathname()
-  const { t, locale } = useTranslate()
+  const { locale, t } = useTranslate()
 
   const changeLangHandler = (value: string) => {
     const segments = pathname.split('/').filter(Boolean)
@@ -31,11 +32,13 @@ export const Header = ({ isAuth = false }: { isAuth?: boolean }) => {
   return (
     <div className={s.wrapper}>
       <div className={s.container}>
-        <Typography variant={'large'}>Inctagram</Typography>
+        <Typography variant={'large'}>
+          <Link href={'/'}>Inctagram</Link>
+        </Typography>
         <div className={s.content}>
           <div className={s.options}>
             {isAuth && (
-              <Button variant={'text'} className={s.bellButton}>
+              <Button className={s.bellButton} variant={'text'}>
                 <BellOutlineIcon />
                 <Typography as={'span'} variant={'small'}>
                   3
@@ -43,18 +46,18 @@ export const Header = ({ isAuth = false }: { isAuth?: boolean }) => {
               </Button>
             )}
 
-            <SelectBox
-              options={options}
+            <SelectBoxDynamic
               className={s.select}
-              value={locale}
               onChange={changeLangHandler}
+              options={options}
+              value={locale}
             />
           </div>
           {!isAuth && (
             <div className={s.buttonsContainer}>
               <Button
-                color={'link'}
                 asChild
+                color={'link'}
                 onClick={() => push(RoutesNames.SIGN_IN)}
                 variant={'text'}
               >
@@ -63,8 +66,8 @@ export const Header = ({ isAuth = false }: { isAuth?: boolean }) => {
                 </Typography>
               </Button>
               <Button
-                color={'link'}
                 asChild
+                color={'link'}
                 onClick={() => push(RoutesNames.SIGN_UP)}
                 variant={'primary'}
               >
