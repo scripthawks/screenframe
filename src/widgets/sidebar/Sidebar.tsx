@@ -1,14 +1,11 @@
-import { type ComponentPropsWithRef, useState } from 'react'
+import { type ComponentPropsWithRef } from 'react'
 
-import { clearAccessToken, clearId } from '@/features/auth/signIn'
-import { useGetMeQuery, useLogoutMutation } from '@/shared/api/authApi'
+import { Logout } from '@/features'
 import {
   Bookmark,
   BookmarkOutline,
   Home,
   HomeOutline,
-  LogOut,
-  LogOutOutline,
   MessageCircle,
   MessageCircleOutline,
   Person,
@@ -21,11 +18,11 @@ import {
   TrendingUpOutline,
 } from '@/shared/assets/icons'
 import { RoutesNames } from '@/shared/const/routesNames'
+import { useMeQuery } from '@/shared/hoc/api/authApi'
 import { Typography } from '@/shared/ui'
-import { useAppDispatch } from '@/store'
 import { clsx } from 'clsx'
 import Link from 'next/link'
-import { usePathname, useRouter } from 'next/navigation'
+import { usePathname } from 'next/navigation'
 
 import s from './Sidebar.module.scss'
 
@@ -78,33 +75,14 @@ function DesktopSidebar({ className, ...rest }: ComponentPropsWithRef<'nav'>) {
     secondContainer: clsx(s.desktopSecondContainer, s.desktopContainer),
   }
 
-  const router = useRouter()
   const pathname = usePathname()
-  const dispatch = useAppDispatch()
 
-  const { data: meData, isLoading } = useGetMeQuery()
-  const [logout, { isLoading: isLoadingLogout }] = useLogoutMutation()
-  const [isLogoutOpen, setIsLogoutOpen] = useState(false)
+  const { data: meData, isLoading } = useMeQuery()
 
   const actualLink = (actualPath: string) => ({
     active: pathname === actualPath,
     className: pathname === actualPath ? classNames.activeLink : '',
   })
-
-  const handleLogout = async () => {
-    try {
-      await logout().unwrap()
-      dispatch(clearAccessToken())
-      dispatch(clearId())
-      router.push(RoutesNames.SIGN_IN)
-    } catch (error) {
-      console.error('Logout failed:', error)
-
-      dispatch(clearAccessToken())
-      dispatch(clearId())
-      router.push(RoutesNames.SIGN_IN)
-    }
-  }
 
   if (!meData && !isLoading) {
     return null
@@ -130,11 +108,11 @@ function DesktopSidebar({ className, ...rest }: ComponentPropsWithRef<'nav'>) {
             <li>
               <Typography
                 as={Link}
-                className={actualLink(`${RoutesNames.PROFILE}/${meData?.id}`).className}
-                href={`${RoutesNames.PROFILE}/${meData?.id}`}
+                className={actualLink(`${RoutesNames.PROFILE}/${meData?.userId}`).className}
+                href={`${RoutesNames.PROFILE}/${meData?.userId}`}
                 variant={'regularText14'}
               >
-                {actualLink(`${RoutesNames.PROFILE}/${meData?.id}`).active ? (
+                {actualLink(`${RoutesNames.PROFILE}/${meData?.userId}`).active ? (
                   <Person />
                 ) : (
                   <PersonOutline />
@@ -164,13 +142,7 @@ function DesktopSidebar({ className, ...rest }: ComponentPropsWithRef<'nav'>) {
             </li>
           </div>
           <li>
-            <Typography
-              className={classNames.logoutText(isLoadingLogout)}
-              onClick={handleLogout}
-              variant={'regularText14'}
-            >
-              {active ? <LogOut /> : <LogOutOutline />} Log Out
-            </Typography>
+            <Logout />
           </li>
         </ul>
       </nav>
