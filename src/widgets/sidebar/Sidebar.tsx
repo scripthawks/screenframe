@@ -1,4 +1,4 @@
-import { type ComponentPropsWithRef } from 'react'
+import { useState, type ComponentPropsWithRef } from 'react'
 
 import { Logout } from '@/features'
 import {
@@ -25,6 +25,7 @@ import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 
 import s from './Sidebar.module.scss'
+import { PhotoCreateModal } from '@/shared/ui/Modal/PhotoCreateModal/PhotoCreateModal'
 
 type Props = {
   isMobile?: boolean
@@ -67,6 +68,8 @@ function MobileSidebar({ className, ...rest }: ComponentPropsWithRef<'nav'>) {
 }
 
 function DesktopSidebar({ className, ...rest }: ComponentPropsWithRef<'nav'>) {
+  const [isCreateModalOpen, setIsCreateModalOpen] = useState(false)
+
   const classNames = {
     activeLink: s.activeLink,
     firstContainer: clsx(s.desktopContainer, s.desktopFirstContainer),
@@ -101,7 +104,11 @@ function DesktopSidebar({ className, ...rest }: ComponentPropsWithRef<'nav'>) {
               </Typography>
             </li>
             <li>
-              <Typography as={'button'} variant={'regularText14'}>
+              <Typography
+                as={'button'}
+                variant={'regularText14'}
+                onClick={() => setIsCreateModalOpen(true)}
+              >
                 {active ? <PlusSquare /> : <PlusSquareOutline />} Create
               </Typography>
             </li>
@@ -146,6 +153,13 @@ function DesktopSidebar({ className, ...rest }: ComponentPropsWithRef<'nav'>) {
           </li>
         </ul>
       </nav>
+      <PhotoCreateModal
+        open={isCreateModalOpen}
+        onClose={() => setIsCreateModalOpen(false)}
+        onSuccess={postId => {
+          console.log('Published:', postId)
+        }}
+      />
     </>
   )
 }

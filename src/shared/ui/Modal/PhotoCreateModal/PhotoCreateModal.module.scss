@@ -1,0 +1,18 @@
+.wizardContent {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  font-family: var(--font-family);
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 180%;
+  color: var(--light-100);
+
+  border: 1px solid var(--dark-100);
+  border-radius: 2px;
+  width: 492px;
+  height: 564px;
+
+  background-color: var(--dark-300);
+}
