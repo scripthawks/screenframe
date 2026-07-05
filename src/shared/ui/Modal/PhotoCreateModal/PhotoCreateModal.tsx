@@ -12,6 +12,7 @@ import { PhotoFile, photoPostSchema } from '@/shared/schemas/photoPostSchema'
 import { BaseModal, ModalSize } from '../BaseModal'
 import { Typography } from '../../Typography/Typography'
 import { CropCoords, getCroppedBlob } from './utils/cropImage'
+import { useCreatePostMutation } from '@/features/profile/api/postsApi'
 
 export type WizardStep = 'upload' | 'adjust' | 'filters' | 'publish'
 
@@ -37,7 +38,7 @@ export const PhotoCreateModal = ({ open, onClose, onSuccess }: PhotoCreateModalP
   const [activeIndex, setActiveIndex] = useState(0)
   const [description, setDescription] = useState('')
   const [errors, setErrors] = useState<Record<string, string[]>>({})
-  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [createPost, { isLoading: isCreating }] = useCreatePostMutation()
 
   const cleanupUrls = useRef<Set<string>>(new Set())
 
@@ -54,14 +55,23 @@ export const PhotoCreateModal = ({ open, onClose, onSuccess }: PhotoCreateModalP
     }
   }, [open])
 
-  const resetState = () => {
+  const resetState = useCallback(() => {
     setStep('upload')
     setPhotos([])
     setActiveIndex(0)
     setDescription('')
     setErrors({})
-    setIsSubmitting(false)
-  }
+
+    // Очищаем URL объектов
+    cleanupUrls.current.forEach(url => URL.revokeObjectURL(url))
+    cleanupUrls.current.clear()
+  }, [])
+
+  //Закрытие модалки без сохранения
+  const handleClose = useCallback(() => {
+    resetState()
+    onClose()
+  }, [resetState, onClose])
 
   const activePhoto = photos[activeIndex]
 
@@ -182,49 +192,51 @@ export const PhotoCreateModal = ({ open, onClose, onSuccess }: PhotoCreateModalP
     })
 
     if (!parsed.success) {
-      const flattened = parsed.error.flatten()
-      setErrors({ files: flattened.fieldErrors.photos || [], form: flattened.formErrors || [] })
+      setErrors({ form: parsed.error.issues.map(i => i.message) })
       return
     }
 
-    setIsSubmitting(true)
     setErrors({})
 
     try {
-      // 📦 Формирование FormData
-      const formData = new FormData()
-      photos.forEach((photo, i) => {
-        const blob = photo.croppedBlob || photo.file
-        formData.append(`photos[${i}]`, blob, `photo_${i}.jpg`)
-        formData.append(`aspectRatios[${i}]`, photo.aspectRatio)
-        formData.append(`filters[${i}]`, photo.filter)
-      })
-      formData.append('description', description)
-
-      // 🌐 API-запрос
-      const response = await fetch('/api/posts', {
-        method: 'POST',
-        body: formData,
-        // headers: { 'Authorization': `Bearer ${token}` }
+      const filesToUpload = photos.map(photo => {
+        if (photo.croppedBlob) {
+          return new File([photo.croppedBlob], photo.file.name, { type: 'image/jpeg' })
+        }
+        return photo.file
       })
 
-      if (!response.ok) throw new Error('Ошибка публикации')
+      const response = await createPost({
+        files: filesToUpload,
+        description: description.trim() || undefined,
+      }).unwrap()
 
-      const result = await response.json()
-      onSuccess?.(result.postId)
-      onClose()
-    } catch (error) {
-      setErrors({ form: [error instanceof Error ? error.message : 'Не удалось опубликовать'] })
-    } finally {
-      setIsSubmitting(false)
+      if (response.resultCode !== 0) {
+        throw new Error(response.extensions?.[0]?.message || 'Ошибка публикации')
+      }
+
+      const newPost = response.data
+      console.log('Post created:', newPost)
+
+      onSuccess?.(response.data.id)
+      handleClose()
+    } catch (err) {
+      let message = 'Не удалось опубликовать пост'
+
+      if (err instanceof Error) {
+        message = err.message
+      } else if (err && typeof err === 'object' && 'data' in err) {
+        const errorData = (err as any).data
+        message = errorData?.extensions?.[0]?.message || errorData?.message || message
+      }
+
+      setErrors({ form: [message] })
     }
-  }, [photos, description, onSuccess, onClose])
+  }, [photos, description, createPost, handleClose, onSuccess])
 
   // Определение кнопок модалки в зависимости от шага
   const modalProps = useMemo(() => {
     const base = {
-      open,
-      onClose,
       modalSize: 'large' as ModalSize,
       className: s.modalRoot,
     }
@@ -261,7 +273,7 @@ export const PhotoCreateModal = ({ open, onClose, onSuccess }: PhotoCreateModalP
         return {
           ...base,
           title: stepTitles.publish,
-          actionButtonName: isSubmitting ? 'Publication...' : 'Publish',
+          actionButtonName: isCreating ? 'Publication...' : 'Publish',
           cancelButtonName: 'Back',
           onAction: handlePublish,
           onCancel: handleBack,
@@ -269,10 +281,10 @@ export const PhotoCreateModal = ({ open, onClose, onSuccess }: PhotoCreateModalP
           fullWidthButton: true,
         }
     }
-  }, [step, open, onClose, handleNext, handleBack, handlePublish, isSubmitting])
+  }, [step, open, onClose, handleNext, handleBack, handlePublish, isCreating])
 
   return (
-    <BaseModal {...modalProps}>
+    <BaseModal open={open} onClose={handleClose} {...modalProps}>
       <div className={s.wizardContent}>
         {/* Рендер шагов */}
         {step === 'upload' && (
@@ -300,6 +312,7 @@ export const PhotoCreateModal = ({ open, onClose, onSuccess }: PhotoCreateModalP
             description={description}
             onDescriptionChange={setDescription}
             maxChars={500}
+            isSubmitting={isCreating}
           />
         )}
       </div>
