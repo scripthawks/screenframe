@@ -62,7 +62,7 @@ export const BaseModal = (props: BaseModalProps) => {
   }
 
   return (
-    <Dialog.Root open={open}>
+    <Dialog.Root open={open} onOpenChange={isOpen => !isOpen && onClose?.()}>
       <Dialog.Portal>
         <Dialog.Overlay className={s.overlay} />
         <Dialog.Content className={classNames.content} {...rest}>
@@ -70,9 +70,14 @@ export const BaseModal = (props: BaseModalProps) => {
             <Dialog.Title className={s.title}>
               <Typography variant={'h1'}>{title}</Typography>
             </Dialog.Title>
-            <Button className={s.closeButton} onClick={onCloseHandler}>
+            <Dialog.Close asChild>
+              <Button className={s.closeButton} type="button" onClick={onCloseHandler}>
+                <Close />
+              </Button>
+            </Dialog.Close>
+            {/* <Button className={s.closeButton} onClick={onCloseHandler}>
               <Close />
-            </Button>
+            </Button> */}
             <Separator className={classNames.separator} />
           </div>
 

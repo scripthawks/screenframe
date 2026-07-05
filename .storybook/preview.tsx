@@ -1,7 +1,5 @@
-import type { Preview } from '@storybook/nextjs-vite'
-import type { Decorator } from '@storybook/react'
+import type { Decorator, Preview } from '@storybook/nextjs-vite'
 import { ToastContainer } from 'react-toastify'
-import 'react-toastify/dist/ReactToastify.css'
 
 const preview: Preview = {
   parameters: {

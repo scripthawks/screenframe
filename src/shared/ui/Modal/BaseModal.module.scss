@@ -109,13 +109,11 @@
   }
 
   .footerButtons {
-    @include flex-block($flex-direction: row, $justify-content: flex-end);
-
-    padding-top: 12px;
+    @include flex-block($flex-direction: column, $justify-content: center);
   }
 
   .footerButton {
-    margin-left: 10px;
+    margin-top: 10px;
     padding-right: 36px;
     padding-left: 36px;
   }

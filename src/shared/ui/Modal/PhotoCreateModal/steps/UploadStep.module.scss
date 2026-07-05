@@ -1,0 +1,38 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.preview {
+  border: none;
+  border-radius: 2px;
+  width: 222px;
+  height: 228px;
+  margin-bottom: 60px;
+
+  cursor: pointer;
+
+  background: var(--dark-500);
+  background-color: #171717;
+}
+
+.selectButton {
+  border: 1px solid var(--dark-100);
+  border-radius: 2px;
+  padding: 6px 24px;
+  width: 219px;
+  height: 36px;
+  cursor: pointer;
+
+  background: var(--primary-500);
+  background-color: #397df6;
+
+  font-family: var(--font-family);
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 150%;
+  text-align: center;
+  color: var(--light-100);
+}
